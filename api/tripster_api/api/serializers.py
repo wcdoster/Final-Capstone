@@ -3,17 +3,30 @@ from api.models import *
 from rest_framework import serializers
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    model = User
-    fields = ('username', 'first_name', 'email', 'password')
+    class Meta:
+        model = User
+        fields = ('username', 'password')
 
 class TravelerSerializer(serializers.HyperlinkedModelSerializer):
-    model = Traveler
-    fields = '__all__'
+    
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+
+        model = Traveler
+        fields = ('user', 'first_name', 'nationality', 'age', 'city', 'question_1', 'answer_1','question_2', 'answer_2','question_3', 'answer_3')
 
 class NationalitySerializer(serializers.HyperlinkedModelSerializer):
-    model = Nationality
-    fields = '__all__'
+    class Meta:
+        model = Nationality
+        fields = '__all__'
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
-    model = Question
-    fields = '__all__'
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class CitySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
