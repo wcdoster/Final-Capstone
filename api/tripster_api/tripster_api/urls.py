@@ -22,17 +22,23 @@ from api.views import *
 from api import views
 
 router = routers.DefaultRouter()
-router.register(r'travelers', TravelerViewSet)
+router.register(r'loggedin-traveler', LoggedInTravelerViewSet, base_name='loggedin-traveler')
 router.register(r'users', UserViewSet)
 router.register(r'questions', QuestionViewSet)
 router.register(r'nationalities', NationalityViewSet)
 router.register(r'cities', CityViewSet)
+router.register(r'travelers', TravelerViewSet)
+# router.register(r'authenticate', CustomObtainAuthToken, base_name='authenticate')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'post-traveler/', views.traveler_view),
+    url(r'post-traveler/', views.post_traveler_view),
+    url(r'traveler-list/', views.list_traveler_view),
+    url(r'travelers/<int:pk>/', views.traveler_view),
+    url(r'get-user/', views.user_view),
     url(r'^', include(router.urls)),
     url(r'^register/', views.register_user),
+    url(r'^authenticate', ObtainAuthToken),
     url(r'^api-token-auth/', obtain_auth_token),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

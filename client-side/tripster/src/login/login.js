@@ -16,7 +16,8 @@ class Login extends Component {
             body: JSON.stringify(user),
             headers: {
                 "Content-type": "application/json",
-                'Accept': 'application/json, text/plain'
+                'Accept': 'application/json, text/plain',
+                // 'credentials': 'include'
             }
         })
             .then(r => r.json())
@@ -25,12 +26,37 @@ class Login extends Component {
                 console.log('converted token', response.token);
                 localStorage.setItem("token", response.token)
                 localStorage.setItem("user", this.state.username)
-                this.props.setAppState({ authToken: response.token, user: response.username })
+                // debugger
+                this.props.setAppState({ authToken: response.token, user: response.username, userId: response.id })
                 this.setState({
                     username: "",
                     password: ""
                 })
+                fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+                    method: 'GET',
+                    headers: {
+                        "authorization": `Token ${response.token}`
+                    }
+                })
+                    .then(r => r.json())
+                    .then(response => {
+                        console.log(response)
+                        const j = response[0]
+                        this.props.setAppState({ userId: j.user })
+                    })
             })
+        // .then(()=>{
+        //     fetch(`http://127.0.0.1:8000/users/?get_single_user=True`,{
+        //         method: 'GET',
+        //         headers: {
+        //             "Content-type": "application/json",
+        //             'Accept': 'application/json, text/plain',
+        //             "authorization": `Token ${this.props.authToken}`
+        //         }
+        //     })
+        //     .then(r=>r.json())
+        //     .then(response=>console.log(response))
+        // })
     }.bind(this)
 
     onChange = function (evt) {
@@ -43,12 +69,14 @@ class Login extends Component {
         const user = Object.assign({}, this.state)
         this.postAuth('api-token-auth', user)
             .then(() => {
-                this.props.setAppState({ view: "discover" })
+                if (this.props.authToken) {
+                    this.props.setAppState({ view: "discover" })
+                }
             })
     }.bind(this)
 
-    viewRegistration = function() {
-        this.props.setAppState({view:"register"})
+    viewRegistration = function () {
+        this.props.setAppState({ view: "register" })
     }.bind(this)
 
     render() {

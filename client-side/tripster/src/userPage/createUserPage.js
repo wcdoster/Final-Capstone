@@ -22,6 +22,7 @@ class CreateUserPage extends Component {
         fetch('http://127.0.0.1:8000/cities/')
             .then(r => r.json())
             .then(response => {
+                console.log(response)
                 this.setState({
                     cityList: response
                 })
@@ -29,6 +30,7 @@ class CreateUserPage extends Component {
         fetch('http://127.0.0.1:8000/nationalities/')
             .then(r => r.json())
             .then(response => {
+                console.log(response)
                 this.setState({
                     nationalityList: response
                 })
@@ -36,6 +38,7 @@ class CreateUserPage extends Component {
         fetch('http://127.0.0.1:8000/questions/')
             .then(r => r.json())
             .then(response => {
+                console.log(response)
                 this.setState({
                     questionList: response
                 })
@@ -51,7 +54,7 @@ class CreateUserPage extends Component {
     saveUser = function () {
 
         const traveler = {
-            user: this.props.userId,
+            user: `http://127.0.0.1:8000/users/${this.props.userId}/`,
             first_name: this.state.first_name,
             nationality: this.state.nationality,
             city: this.state.city,
@@ -63,6 +66,8 @@ class CreateUserPage extends Component {
             question_3: this.state.question_3,
             answer_3: this.state.answer_3
         }
+
+        console.log(traveler)
 
         fetch(`http://127.0.0.1:8000/post-traveler/`, {
             method: 'POST',

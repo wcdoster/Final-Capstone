@@ -5,30 +5,44 @@ import Registration from './register/register'
 import Login from './login/login'
 import NavBar from './nav/nav'
 import CreateUserPage from './userPage/createUserPage'
-import UserPage from './userPage/createUserPage'
+import UserPage from './userPage/userPage'
 import EditUserProfile from './userPage/editUserPage'
+import Discover from './discover/discover'
 
 class App extends Component {
 
   state = {
     authToken: "",
     user: "",
-    userId:"",
+    userId: "",
     view: ""
   }
 
   componentDidMount() {
     const user = localStorage.getItem("user")
     const authToken = localStorage.getItem("token")
+    const userId = localStorage.getItem("userId")
 
     if (user && authToken) {
+      fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+        method: 'GET',
+        headers: {
+            "authorization": `Token ${authToken}`
+        }
+    })
+        .then(r => r.json())
+        .then(response => {
+            console.log(response)
+            const j = response[0]
+            this.setState({userId: j.user})
+        })
       this.setState({
         authToken: authToken,
         user: user,
         view: "discover"
       })
-    }else {
-      this.setState({view: "login"})
+    } else {
+      this.setState({ view: "login" })
     }
   }
 
@@ -42,29 +56,29 @@ class App extends Component {
     })
   }.bind(this)
 
-  showView = function (view) {
+  showView = function () {
     switch (this.state.view) {
       case "discover":
-        return <h1>HELLO</h1>
+        return <Discover />
       case "register":
         return <Registration setAppState={this.setAppState} />
       case "createUserPage":
-        return <CreateUserPage authToken={this.state.authToken} userId={this.state.userId} />
+        return <CreateUserPage authToken={this.state.authToken} userId={this.state.userId} initialize={this.initialize} />
       case "profile":
-        return <UserPage setView={this.setView} />
+        return <UserPage setView={this.setView} userId={this.state.userId} initialize={this.initialize} />
       case "editUserPage":
-        return <EditUserProfile authToken={this.state.authToken} />
+        return <EditUserProfile setAppState={this.setAppState} authToken={this.state.authToken} userId={this.state.userId} />
       default:
       case "login":
-        return <Login setAppState={this.setAppState} setView={this.setView} />
+        return <Login setAppState={this.setAppState} setView={this.setView} authToken={this.state.authToken} />
     }
   }.bind(this)
 
-  showNav = function(){
-    if(this.state.authToken){
+  showNav = function () {
+    if (this.state.authToken) {
       return (
-        <NavBar setView={this.setView} 
-        setAppState={this.setAppState} 
+        <NavBar setView={this.setView}
+          setAppState={this.setAppState}
         />
       )
     }

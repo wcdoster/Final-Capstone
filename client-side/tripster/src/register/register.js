@@ -4,8 +4,6 @@ class Registration extends Component {
 
     state = {
         username: "",
-        first_name: "",
-        email: "",
         password: "",
     }
 
@@ -29,19 +27,24 @@ class Registration extends Component {
         })
             .then(r => r.json())
             .then(response => {
+                // debugger
                 console.log(response)
                 console.log('converted token', response.token);
                 localStorage.setItem("token", response.token)
-                localStorage.setItem("user", this.state.username)
-                this.props.setAppState({ authToken: response.token, user: response.username, userId: response.id })
+                localStorage.setItem("user", response.username)
+                localStorage.setItem("userId", response.id)
+                this.props.setAppState({ authToken: response.token,
+                    user: response.username, 
+                    userId: response.id })
                 this.setState({
                     username: "",
-                    first_name: "",
-                    email: "",
                     password: "",
                 })
                 this.props.setAppState({view: "createUserPage"})
             })
+            // .catch(err => {
+            //     alert("username is taken")
+            // })
     }.bind(this)
 
     register = function () {
@@ -60,8 +63,6 @@ class Registration extends Component {
         return (
             <div>
                 <input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
-                <input type="text" placeholder="first_name" value={this.state.first_name} onChange={this.onChange} />
-                <input type="email" placeholder="email" value={this.state.email} onChange={this.onChange} />
                 <input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
                 <input type="submit" onClick={this.register} value="submit" />
             </div>
