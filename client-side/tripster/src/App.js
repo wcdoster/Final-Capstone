@@ -10,6 +10,7 @@ import EditUserProfile from './userPage/editUserPage'
 import Discover from './discover/discover'
 import LikesPage from './likes/likes'
 import LikeProfile from './likes/likeProfile'
+import MatchPage from './matches/matches'
 
 class App extends Component {
 
@@ -61,8 +62,10 @@ class App extends Component {
 
   showView = function () {
     switch (this.state.view) {
+      case 'matches':
+        return <MatchPage />
       case "likeProfile":
-        return <LikeProfile viewingUserUrl={this.state.viewingUserUrl} />
+        return <LikeProfile viewingUserUrl={this.state.viewingUserUrl} authToken={this.state.authToken} />
       case "likes":
         return <LikesPage setAppState={this.setAppState} />
       case "discover":

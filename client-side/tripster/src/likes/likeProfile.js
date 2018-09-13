@@ -33,7 +33,16 @@ class LikeProfile extends Component {
     }
 
     match = function () {
-
+        const match = {traveler_1: this.state.currentUser.url, traveler_2: this.state.traveler.url}
+        fetch(`http://127.0.0.1:8000/traveler-match/`,{
+            method: 'POST',
+            body: JSON.stringify(match),
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json, text/plain',
+                "authorization": `Token ${this.props.authToken}`
+            }
+        })
     }.bind(this)
 
     makeTraveler = function (traveler) {
@@ -86,7 +95,7 @@ class LikeProfile extends Component {
                 <p>{this.state.traveler.answer_2}</p>
                 <p>{this.state.traveler.question_3}</p>
                 <p>{this.state.traveler.answer_3}</p>
-                <button>Match</button>
+                <button onClick={this.match}>Match</button>
                 <button onClick={this.remove}>Remove</button>
             </div>
         )
