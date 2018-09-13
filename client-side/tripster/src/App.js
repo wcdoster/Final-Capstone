@@ -8,6 +8,8 @@ import CreateUserPage from './userPage/createUserPage'
 import UserPage from './userPage/userPage'
 import EditUserProfile from './userPage/editUserPage'
 import Discover from './discover/discover'
+import LikesPage from './likes/likes'
+import LikeProfile from './likes/likeProfile'
 
 class App extends Component {
 
@@ -15,7 +17,8 @@ class App extends Component {
     authToken: "",
     user: "",
     userId: "",
-    view: ""
+    view: "",
+    viewingUserUrl: ""
   }
 
   componentDidMount() {
@@ -58,6 +61,10 @@ class App extends Component {
 
   showView = function () {
     switch (this.state.view) {
+      case "likeProfile":
+        return <LikeProfile viewingUserUrl={this.state.viewingUserUrl} />
+      case "likes":
+        return <LikesPage setAppState={this.setAppState} />
       case "discover":
         return <Discover />
       case "register":

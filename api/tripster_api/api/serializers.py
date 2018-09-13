@@ -36,3 +36,18 @@ class TravelerSerializer(serializers.HyperlinkedModelSerializer):
         model = Traveler
         fields = ('user', 'first_name', 'nationality', 'age', 'city', 'question_1', 'answer_1','question_2', 'answer_2','question_3', 'answer_3', 'url', 'id')
         # fields = '__all__'
+
+class TravelerLikeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TravelerLike
+        fields = ('sender', 'receiver')
+
+class TravelerMatchSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TravelerMatch
+        fields = ('traveler_1', 'traveler_2')
+
+class TravelerRemoveSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TravelerRemove
+        fields = '__all__'

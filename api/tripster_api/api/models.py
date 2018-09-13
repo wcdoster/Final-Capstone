@@ -34,3 +34,20 @@ class Traveler(models.Model):
 
   def __str__(self):
     return "{}".format(self.first_name)
+
+class TravelerLike(models.Model):
+    sender = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='like_sender')
+    receiver = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='like_receiver')
+
+class TravelerMatch(models.Model):
+    traveler_1 = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='traveler_1')
+    traveler_2 = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='traveler_2')
+
+class TravelerRemove(models.Model):
+    sender = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='remove_sender')
+    receiver = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='remove_receiver')
+
+class TravelerChat(models.Model):
+    sender = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='chat_sender')
+    receiver = models.ForeignKey(Traveler, on_delete=models.CASCADE, related_name='chat_receiver')
+    message =  models.CharField(max_length=500)

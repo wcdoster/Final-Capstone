@@ -145,10 +145,10 @@ class LoggedInTravelerViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
-        print(user)
+        # print(user)
         queryset = Traveler.objects.filter(user=user)
 
-        print(queryset)
+        # print(queryset)
 
         return queryset
 
@@ -182,3 +182,61 @@ class NationalityViewSet(viewsets.ModelViewSet):
 class CityViewSet(viewsets.ModelViewSet):
   queryset = City.objects.all()
   serializer_class = CitySerializer
+
+
+@api_view(['GET', 'POST', 'DELETE'])
+def traveler_like_view(request):
+    if request.method == 'GET':
+        traveler = TravelerLike.objects.all()
+        # print(traveler)
+        serializer = TravelerLikeSerializer(traveler, many=True, context={'request':request})
+        print(serializer.data)
+        print('hello')
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = TravelerLikeSerializer(data=request.data, context={'request':request})
+        print(request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            print('is valid')
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def traveler_remove_view(request):
+    if request.method == 'GET':
+        traveler = TravelerRemove.objects.filter(receiver=request.user)
+        serializer = TravelerRemoveSerializer(traveler, context={'request':request})
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = TravelerRemoveSerializer(data=request.data, context={'request':request})
+        print(request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            print('is valid')
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+@api_view(['GET', 'POST', 'DELETE'])
+def traveler_match_view(request):
+    if request.method == 'GET':
+        traveler = TravelerMatch.objects.all()
+        # print(traveler)
+        serializer = TravelerMatchSerializer(traveler, many=True, context={'request':request})
+        print(serializer.data)
+        print('hello')
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = TravelerMatchSerializer(data=request.data, context={'request':request})
+        print(request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            print('is valid')
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
