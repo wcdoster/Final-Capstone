@@ -40,14 +40,19 @@ class TravelerSerializer(serializers.HyperlinkedModelSerializer):
 class TravelerLikeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TravelerLike
-        fields = ('sender', 'receiver')
+        fields = ('sender', 'receiver', 'id')
 
 class TravelerMatchSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TravelerMatch
-        fields = ('traveler_1', 'traveler_2')
+        fields = ('traveler_1', 'traveler_2', 'id')
 
 class TravelerRemoveSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TravelerRemove
-        fields = '__all__'
+        fields = ('sender', 'receiver', 'id')
+
+class TravelerChatSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TravelerChat
+        fields = ('sender', 'receiver', 'message')

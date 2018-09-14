@@ -11,6 +11,8 @@ import Discover from './discover/discover'
 import LikesPage from './likes/likes'
 import LikeProfile from './likes/likeProfile'
 import MatchPage from './matches/matches'
+import MatchUserPage from './matches/matchUserPage'
+import Chat from './chat/chat'
 
 class App extends Component {
 
@@ -19,7 +21,8 @@ class App extends Component {
     user: "",
     userId: "",
     view: "",
-    viewingUserUrl: ""
+    viewingUserUrl: "",
+    chatUser: ""
   }
 
   componentDidMount() {
@@ -62,12 +65,16 @@ class App extends Component {
 
   showView = function () {
     switch (this.state.view) {
+      case 'chat':
+        return <Chat user={this.state.user} chatUser={this.state.chatUser} authToken={this.state.authToken} />
+      case 'matchProfile':
+        return <MatchUserPage viewingUserUrl={this.state.viewingUserUrl} setAppState={this.setAppState} authToken={this.state.authToken} />
       case 'matches':
-        return <MatchPage />
+        return <MatchPage setAppState={this.setAppState} />
       case "likeProfile":
         return <LikeProfile viewingUserUrl={this.state.viewingUserUrl} authToken={this.state.authToken} />
       case "likes":
-        return <LikesPage setAppState={this.setAppState} />
+        return <LikesPage setAppState={this.setAppState} authToken={this.state.authToken} />
       case "discover":
         return <Discover />
       case "register":

@@ -12,14 +12,14 @@ class Discover extends Component {
 
     componentDidMount() {
         const authToken = localStorage.getItem('token')
-        this.setState({authToken: authToken})
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`, 
-        {
-            method: 'GET',
-            headers: {
-                "authorization": `Token ${authToken}`
-            }
-        })
+        this.setState({ authToken: authToken })
+        fetch(`http://127.0.0.1:8000/loggedin-traveler/`,
+            {
+                method: 'GET',
+                headers: {
+                    "authorization": `Token ${authToken}`
+                }
+            })
             .then(r => r.json())
             .then(j => {
                 const result = j[0]
@@ -43,8 +43,8 @@ class Discover extends Component {
             })
     }
 
-    like = function() {
-        const travelerLike = {sender:this.state.currentUser.url, receiver:this.state.traveler.url}
+    like = function () {
+        const travelerLike = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
 
         fetch('http://127.0.0.1:8000/traveler-like/', {
             method: 'POST',
@@ -55,10 +55,16 @@ class Discover extends Component {
                 "authorization": `Token ${this.state.authToken}`
             }
         })
+            .then(() => {
+                debugger
+                const newTravelerList = this.state.travelerList
+                newTravelerList.shift()
+                this.setState({ travelerList: newTravelerList, traveler:newTravelerList[0] })
+            })
     }.bind(this)
 
-    remove = function() {
-        const travelerRemove = {sender:this.state.currentUser.url, receiver:this.state.traveler.url}
+    remove = function () {
+        const travelerRemove = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
 
         fetch('http://127.0.0.1:8000/traveler-remove/', {
             method: 'POST',
@@ -104,15 +110,14 @@ class Discover extends Component {
                 travelerObject.answer_3 = traveler.answer_3
                 travelerObject.url = traveler.url
                 travelerObject.id = traveler.id
-                this.setState({traveler:travelerObject})
+                this.setState({ traveler: travelerObject })
             })
     }.bind(this)
 
-
-
-    render() {
-        return (
-            <div>
+    renderUser = function(){
+        if(this.state.traveler){
+            return(
+                <div>
                 <h2>{this.state.traveler.first_name}</h2>
                 <h4>{this.state.traveler.nationality}</h4>
                 <h4>{this.state.traveler.city}</h4>
@@ -125,6 +130,21 @@ class Discover extends Component {
                 <p>{this.state.traveler.answer_3}</p>
                 <button onClick={this.like}>Like</button>
                 <button onClick={this.remove}>Remove</button>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <h2>No More Travelers to View</h2>
+                </div>
+            )
+        }
+    }.bind(this)
+
+    render() {
+        return (
+            <div>
+                {this.renderUser()}
             </div>
         )
     }

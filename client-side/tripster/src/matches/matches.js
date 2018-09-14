@@ -55,6 +55,14 @@ class MatchPage extends Component {
             })
     }
 
+    viewChat = function(){
+        this.props.setAppState({view: 'chat'})
+    }.bind(this)
+
+    viewProfile = function (e) {
+        this.props.setAppState({ view: 'matchProfile', viewingUserUrl: e.target.id })
+    }.bind(this)
+
     render() {
         return (
             <div>
@@ -62,8 +70,8 @@ class MatchPage extends Component {
                     <div>
                         <h2>{user.first_name}</h2>
                         <h4>{user.age}</h4>
-                        <button id={user.url}>View Profile</button>
-                        <button>Chat</button>
+                        <button id={user.url} onClick={this.viewProfile}>View Profile</button>
+                        <button onClick={this.viewChat}>Chat</button>
                         <button>Remove</button>
                     </div>
                 ))}
