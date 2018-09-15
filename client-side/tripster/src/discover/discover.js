@@ -22,26 +22,97 @@ class Discover extends Component {
             })
             .then(r => r.json())
             .then(j => {
-                const result = j[0]
-                this.setState({ city: result.city, currentUser: result })
-                fetch(`http://127.0.0.1:8000/travelers/`)
+                const users = []
+                const likeList = []
+                const matchList = []
+                const existingList = []
+                const discoverList = []
+                return fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+                    method: 'GET',
+                    headers: {
+                        "authorization": `Token ${authToken}`
+                    }
+                })
                     .then(r => r.json())
                     .then(response => {
                         console.log(response)
-                        const travelerList = []
-                        response.forEach(person => {
-                            console.log(person.city)
-                            console.log(this.state.city)
-                            if (person.city === this.state.city && person.user !== this.state.currentUser.user) {
-                                travelerList.push(person)
+                        const j = response[0]
+                        const travelerUrl = j.url
+                        const travelerCity = j.city
+                        this.setState({ userId: j.user, travelerUrl: j.url })
+                        fetch(`http://127.0.0.1:8000/traveler-like/`, {
+                            method: 'GET',
+                            headers: {
+                                "authorization": `Token ${authToken}`
                             }
-                        });
-                        this.setState({ travelerList: travelerList })
-                        const firstTraveler = this.makeTraveler(travelerList[0])
-                        console.log(travelerList)
+                        })
+                            .then(r => r.json())
+                            .then(likes => {
+                                console.log(likes)
+                                likes.forEach(like => {
+                                    const thisLike = {}
+                                    if (travelerUrl === like.sender || travelerUrl === like.receiver) {
+                                        existingList.push(like.sender)
+                                        existingList.push(like.receiver)
+                                    }
+                                })
+                                fetch(`http://127.0.0.1:8000/traveler-remove/`, {
+                                    method: 'GET',
+                                    headers: {
+                                        "authorization": `Token ${this.state.authToken}`
+                                    }
+                                })
+                                    .then(r => r.json())
+                                    .then(removes => {
+                                        removes.forEach(remove => {
+                                            const thisMatch = {}
+                                            if (travelerUrl === remove.sender || travelerUrl === remove.receiver) {
+                                                existingList.push(remove.sender)
+                                                existingList.push(remove.receiver)
+                                            }
+                                        })
+                                        fetch(`http://127.0.0.1:8000/traveler-match/`, {
+                                            method: 'GET',
+                                            headers: {
+                                                "authorization": `Token ${this.state.authToken}`
+                                            }
+                                        })
+                                            .then(r => r.json())
+                                            .then(matches => {
+                                                matches.forEach(match => {
+                                                    const thisMatch = {}
+                                                    if (travelerUrl === (match.traveler_1 || match.traveler_2)) {
+                                                        existingList.push(match.traveler_1)
+                                                        existingList.push(match.traveler_2)
+                                                    }
+                                                })
+                                                fetch(`http://127.0.0.1:8000/travelers/`)
+                                                    .then(r => r.json())
+                                                    .then(response => {
+                                                        response
+                                                        console.log(response)
+                                                        response.forEach(person => {
+                                                            if (existingList.indexOf(person.url) === -1 && person.url !== travelerUrl && person.city === travelerCity) {
+                                                                discoverList.push(person)
+                                                            }
+                                                        })
+                                                        this.setState({ discoverList: discoverList })
+                                                        const thisUser = j
+                                                        this.setState({ city: thisUser.city, currentUser: thisUser })
+                                                        const travelerList = discoverList
+                                                        this.setState({ travelerList: travelerList })
+                                                        if (travelerList.length > 0) {
+                                                            this.makeTraveler(travelerList[0])
+                                                            console.log(travelerList)
+                                                        }
+                                                    })
+                                            })
+                                    })
+                            })
                     })
             })
     }
+
 
     like = function () {
         const travelerLike = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
@@ -56,10 +127,12 @@ class Discover extends Component {
             }
         })
             .then(() => {
-                debugger
                 const newTravelerList = this.state.travelerList
                 newTravelerList.shift()
-                this.setState({ travelerList: newTravelerList, traveler:newTravelerList[0] })
+                this.setState({ travelerList: newTravelerList, traveler: {} })
+                if (newTravelerList.length > 0) {
+                    this.makeTraveler(this.state.travelerList[0])
+                }
             })
     }.bind(this)
 
@@ -74,6 +147,14 @@ class Discover extends Component {
                 'Accept': 'application/json, text/plain',
                 "authorization": `Token ${this.state.authToken}`
             }
+        })
+        .then(()=>{
+            const newTravelerList = this.state.travelerList
+                newTravelerList.shift()
+                this.setState({ travelerList: newTravelerList, traveler: {} })
+                if (newTravelerList.length > 0) {
+                    this.makeTraveler(this.state.travelerList[0])
+                }
         })
     }.bind(this)
 
@@ -114,26 +195,26 @@ class Discover extends Component {
             })
     }.bind(this)
 
-    renderUser = function(){
-        if(this.state.traveler){
-            return(
+    renderUser = function () {
+        if (this.state.travelerList.length > 0) {
+            return (
                 <div>
-                <h2>{this.state.traveler.first_name}</h2>
-                <h4>{this.state.traveler.nationality}</h4>
-                <h4>{this.state.traveler.city}</h4>
-                <h4>{this.state.traveler.age}</h4>
-                <p>{this.state.traveler.question_1}</p>
-                <p>{this.state.traveler.answer_1}</p>
-                <p>{this.state.traveler.question_2}</p>
-                <p>{this.state.traveler.answer_2}</p>
-                <p>{this.state.traveler.question_3}</p>
-                <p>{this.state.traveler.answer_3}</p>
-                <button onClick={this.like}>Like</button>
-                <button onClick={this.remove}>Remove</button>
+                    <h2>{this.state.traveler.first_name}</h2>
+                    <h4>{this.state.traveler.nationality}</h4>
+                    <h4>{this.state.traveler.city}</h4>
+                    <h4>{this.state.traveler.age}</h4>
+                    <p>{this.state.traveler.question_1}</p>
+                    <p>{this.state.traveler.answer_1}</p>
+                    <p>{this.state.traveler.question_2}</p>
+                    <p>{this.state.traveler.answer_2}</p>
+                    <p>{this.state.traveler.question_3}</p>
+                    <p>{this.state.traveler.answer_3}</p>
+                    <button onClick={this.like}>Like</button>
+                    <button onClick={this.remove}>Remove</button>
                 </div>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <div>
                     <h2>No More Travelers to View</h2>
                 </div>
@@ -145,7 +226,7 @@ class Discover extends Component {
         return (
             <div>
                 {this.renderUser()}
-            </div>
+            </div >
         )
     }
 }

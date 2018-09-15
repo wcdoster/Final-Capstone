@@ -81,6 +81,25 @@ class LikesPage extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
+        // const travelerRemove = { sender: this.state.currentUser.url, receiver: e.target.parentNode.id }
+
+        // fetch('http://127.0.0.1:8000/traveler-remove/', {
+        //     method: 'POST',
+        //     body: JSON.stringify(travelerRemove),
+        //     headers: {
+        //         "Content-type": "application/json",
+        //         'Accept': 'application/json, text/plain',
+        //         "authorization": `Token ${this.state.authToken}`
+        //     }
+        // })
+        .then(()=>{
+            // const newTravelerList = this.state.travelerList
+            //     newTravelerList.shift()
+            //     this.setState({ travelerList: newTravelerList, traveler: {} })
+            //     if (newTravelerList.length > 0) {
+            //         this.makeTraveler(this.state.travelerList[0])
+            //     }
+        })
     }.bind(this)
 
     render() {

@@ -22,7 +22,9 @@ class App extends Component {
     userId: "",
     view: "",
     viewingUserUrl: "",
-    chatUser: ""
+    chatUser: "",
+    likeList: [],
+    travelerUrl: ""
   }
 
   componentDidMount() {
@@ -31,18 +33,7 @@ class App extends Component {
     const userId = localStorage.getItem("userId")
 
     if (user && authToken) {
-      fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
-        method: 'GET',
-        headers: {
-            "authorization": `Token ${authToken}`
-        }
-    })
-        .then(r => r.json())
-        .then(response => {
-            console.log(response)
-            const j = response[0]
-            this.setState({userId: j.user})
-        })
+      this.getDiscoverUsers(authToken)
       this.setState({
         authToken: authToken,
         user: user,
@@ -52,6 +43,74 @@ class App extends Component {
       this.setState({ view: "login" })
     }
   }
+
+  getDiscoverUsers = function (authToken) {
+    const users = []
+    const likeList = []
+    const matchList = []
+    const existingList = []
+    const discoverList = []
+    return fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+      method: 'GET',
+      headers: {
+        "authorization": `Token ${authToken}`
+      }
+    })
+      .then(r => r.json())
+      .then(response => {
+        console.log(response)
+        const j = response[0]
+        const travelerUrl = j.url
+        this.setState({ userId: j.user, travelerUrl: j.url })
+        fetch(`http://127.0.0.1:8000/traveler-like/`, {
+          method: 'GET',
+          headers: {
+            "authorization": `Token ${authToken}`
+          }
+        })
+          .then(r => r.json())
+          .then(likes => {
+            console.log(likes)
+            likes.forEach(like => {
+              const thisLike = {}
+              if (travelerUrl === (like.sender || like.receiver)) {
+                existingList.push(like.sender)
+                existingList.push(like.receiver)
+              }
+            })
+            fetch(`http://127.0.0.1:8000/traveler-match/`, {
+              method: 'GET',
+              headers: {
+                "authorization": `Token ${this.state.authToken}`
+              }
+            })
+              .then(r => r.json())
+              .then(matches => {
+                matches.forEach(match => {
+                  const thisMatch = {}
+                  if (travelerUrl === (match.traveler_1 || match.traveler_2)) {
+                    existingList.push(match.traveler_1)
+                    existingList.push(match.traveler_2)
+                  }
+                })
+                fetch(`http://127.0.0.1:8000/travelers/`)
+                  .then(r => r.json())
+                  .then(response => {
+                    response
+                    console.log(response)
+                    response.forEach(person => {
+                      if (existingList.indexOf(person.url) === -1 && person.url !== travelerUrl && person.city === j.city) {
+                        discoverList.push(person)
+                      }
+                    })
+                    this.setState({ discoverList: discoverList })
+                  })
+              })
+          })
+      })
+
+  }.bind(this)
+
 
   setAppState = function (stateObject) {
     this.setState(stateObject)
@@ -76,7 +135,7 @@ class App extends Component {
       case "likes":
         return <LikesPage setAppState={this.setAppState} authToken={this.state.authToken} />
       case "discover":
-        return <Discover />
+        return <Discover discoverList={this.state.discoverList} getDiscoverUsers={this.getDiscoverUsers} likeList={this.state.likeList} />
       case "register":
         return <Registration setAppState={this.setAppState} />
       case "createUserPage":
@@ -87,7 +146,7 @@ class App extends Component {
         return <EditUserProfile setAppState={this.setAppState} authToken={this.state.authToken} userId={this.state.userId} />
       default:
       case "login":
-        return <Login setAppState={this.setAppState} setView={this.setView} authToken={this.state.authToken} />
+        return <Login getLikes={this.getLikes} setAppState={this.setAppState} setView={this.setView} authToken={this.state.authToken} />
     }
   }.bind(this)
 
@@ -105,9 +164,9 @@ class App extends Component {
     return (
       <div>
         {this.showNav()}
-        <h1>Welcome to Tripster</h1>
+        < h1 > Welcome to Tripster</h1 >
         {this.showView()}
-      </div>
+      </div >
     )
   }
 }

@@ -33,10 +33,10 @@ class MatchPage extends Component {
                         console.log(result)
                         const matchList = []
                         result.forEach(match => {
-                            if(match.traveler_1 !== this.state.currentUser.url){
-                            matchList.push(match.traveler_1)
-                            } else if(match.traveler_2 !== this.state.currentUser.url){
-                                matchList.push(match.traveler_2)
+                            if(match.traveler_1 === this.state.currentUser.url){
+                            matchList.push(match.traveler_2)
+                            } else if(match.traveler_2 === this.state.currentUser.url){
+                                matchList.push(match.traveler_1)
                             }
                         });
                         console.log(matchList)
@@ -55,8 +55,8 @@ class MatchPage extends Component {
             })
     }
 
-    viewChat = function(){
-        this.props.setAppState({view: 'chat'})
+    viewChat = function(e){
+        this.props.setAppState({view: 'chat', chatUser: e.target.parentNode.id})
     }.bind(this)
 
     viewProfile = function (e) {
@@ -67,7 +67,7 @@ class MatchPage extends Component {
         return (
             <div>
                 {this.state.userList.map(user => (
-                    <div>
+                    <div id={user.url}>
                         <h2>{user.first_name}</h2>
                         <h4>{user.age}</h4>
                         <button id={user.url} onClick={this.viewProfile}>View Profile</button>

@@ -42,7 +42,8 @@ class Login extends Component {
                     .then(response => {
                         console.log(response)
                         const j = response[0]
-                        this.props.setAppState({ userId: j.user })
+                        this.props.setAppState({ userId: j.user, travelerUrl:j.url })
+                        // this.props.getLikes()
                     })
             })
         // .then(()=>{

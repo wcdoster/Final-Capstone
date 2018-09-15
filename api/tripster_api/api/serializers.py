@@ -50,7 +50,7 @@ class TravelerMatchSerializer(serializers.HyperlinkedModelSerializer):
 class TravelerRemoveSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TravelerRemove
-        fields = ('sender', 'receiver', 'id')
+        fields = ('sender', 'receiver')
 
 class TravelerChatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

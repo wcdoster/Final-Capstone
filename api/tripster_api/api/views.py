@@ -208,6 +208,7 @@ class TravelerLikeDetail(viewsets.ModelViewSet):
 
 @api_view(['GET', 'POST', 'DELETE'])
 def traveler_like_view(request):
+
     if request.method == 'GET':
         traveler = TravelerLike.objects.all()
         # print(traveler)
@@ -228,7 +229,8 @@ def traveler_like_view(request):
 
     # if request.method == 'DELETE':
     #     print('delete')
-    #     like = TravelerLike.get_object(pk)
+    #     print(request.data)
+    #     like = TravelerLike.get_object(pk=request.DELETE['pk'])
     #     print(like)
     #     like.delete()
     #     return Response(status=status.HTTP_204_NO_CONTENT)
@@ -244,8 +246,10 @@ def traveler_like_delete(request, pk):
 @api_view(['GET', 'POST', 'DELETE'])
 def traveler_remove_view(request):
     if request.method == 'GET':
-        traveler = TravelerRemove.objects.filter(receiver=request.user)
-        serializer = TravelerRemoveSerializer(traveler, context={'request':request})
+        traveler = TravelerRemove.objects.all()
+        serializer = TravelerRemoveSerializer(traveler, many=True, context={'request':request})
+        print(traveler)
+        print(serializer)
         return Response(serializer.data)
 
     if request.method == 'POST':

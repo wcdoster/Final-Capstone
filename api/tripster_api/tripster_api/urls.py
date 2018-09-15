@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'traveler-like/', views.traveler_like_view),
     url(r'traveler-match/', views.traveler_match_view),
     url(r'traveler-chat/', views.traveler_chat_view),
-    # url(r'traveler-like/<int:pk>/', views.TravelerLikeView.as_view()),
+    url(r'traveler-like/<int:pk>/', views.traveler_like_delete),
     url(r'traveler-remove/', views.traveler_remove_view),
     url(r'^', include(router.urls)),
     url(r'^register/', views.register_user),
