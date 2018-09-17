@@ -34,7 +34,7 @@ class TravelerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
 
         model = Traveler
-        fields = ('user', 'first_name', 'nationality', 'age', 'city', 'question_1', 'answer_1','question_2', 'answer_2','question_3', 'answer_3', 'url', 'id')
+        fields = ('user', 'profile_picture', 'first_name', 'nationality', 'age', 'city', 'question_1', 'answer_1','question_2', 'answer_2','question_3', 'answer_3', 'url', 'id')
         # fields = '__all__'
 
 class TravelerLikeSerializer(serializers.HyperlinkedModelSerializer):

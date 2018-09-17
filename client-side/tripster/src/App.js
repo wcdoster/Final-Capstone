@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import Registration from './register/register'
 import Login from './login/login'
@@ -13,6 +13,7 @@ import LikeProfile from './likes/likeProfile'
 import MatchPage from './matches/matches'
 import MatchUserPage from './matches/matchUserPage'
 import Chat from './chat/chat'
+import logo from './images/tripster_2.png'
 
 class App extends Component {
 
@@ -141,7 +142,7 @@ class App extends Component {
       case "createUserPage":
         return <CreateUserPage setAppState={this.setAppState} authToken={this.state.authToken} userId={this.state.userId} initialize={this.initialize} />
       case "profile":
-        return <UserPage setView={this.setView} userId={this.state.userId} initialize={this.initialize} />
+        return <UserPage setAppState={this.setAppState} setView={this.setView} userId={this.state.userId} initialize={this.initialize} />
       case "editUserPage":
         return <EditUserProfile setAppState={this.setAppState} authToken={this.state.authToken} userId={this.state.userId} />
       default:
@@ -163,8 +164,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.showNav()}
+        <div id="header">
+          <img src={logo} alt='image' height='70' width='70'/>
+        </div>
         {this.showView()}
+        {this.showNav()}
       </div >
     )
   }

@@ -200,10 +200,10 @@ class Discover extends Component {
     renderUser = function () {
         if (this.state.travelerList.length > 0) {
             return (
-                <div>
+                <div id='container'>
                     <h1>Discover</h1>
                     <Box id='discover--box'>
-                    <h2>{this.state.traveler.first_name}</h2>
+                    <h3>{this.state.traveler.first_name}</h3>
                     <h4>{this.state.traveler.nationality}</h4>
                     <h4>{this.state.traveler.city}</h4>
                     <h4>{this.state.traveler.age}</h4>
@@ -221,6 +221,7 @@ class Discover extends Component {
         } else {
             return (
                 <div>
+                    <h1>Discover</h1>
                     <h2>No More Travelers to View</h2>
                 </div>
             )

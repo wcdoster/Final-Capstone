@@ -74,6 +74,7 @@ class LikeProfile extends Component {
             .then(response => {
                 travelerObject.nationality = response.name
                 travelerObject.first_name = traveler.first_name
+                travelerObject.profile_picture = traveler.profile_picture
                 travelerObject.age = traveler.age
                 travelerObject.answer_1 = traveler.answer_1
                 travelerObject.answer_2 = traveler.answer_2
@@ -88,10 +89,15 @@ class LikeProfile extends Component {
         return (
             <div>
                 <Box id='like--profile--box'>
-                <h2>{this.state.traveler.first_name}</h2>
-                <h4>{this.state.traveler.nationality}</h4>
-                <h4>{this.state.traveler.city}</h4>
-                <h4>{this.state.traveler.age}</h4>
+                    <div id="main--info--like">
+                        <img id="like--profile--image" src={this.state.traveler.profile_picture} />
+                        <div>
+                            <h2>{this.state.traveler.first_name}</h2>
+                            <h4>{this.state.traveler.nationality}</h4>
+                            <h4>{this.state.traveler.city}</h4>
+                            <h4>{this.state.traveler.age}</h4>
+                        </div>
+                    </div>
                 <p>{this.state.traveler.question_1}</p>
                 <p>{this.state.traveler.answer_1}</p>
                 <p>{this.state.traveler.question_2}</p>

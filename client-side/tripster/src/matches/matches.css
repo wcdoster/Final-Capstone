@@ -1,0 +1,15 @@
+.match--image{
+    height: 150px;
+    width: auto;
+}
+
+.match--div{
+    display: flex;
+    flex-direction: row;
+}
+
+.match--box{
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+}

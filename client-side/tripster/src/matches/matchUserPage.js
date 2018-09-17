@@ -67,6 +67,7 @@ class MatchUserPage extends Component {
                 travelerObject.answer_3 = traveler.answer_3
                 travelerObject.url = traveler.url
                 travelerObject.id = traveler.id
+                travelerObject.profile_picture = traveler.profile_picture
                 this.setState({ traveler: travelerObject })
             })
     }.bind(this)
@@ -79,10 +80,15 @@ class MatchUserPage extends Component {
         return (
             <div>
                 <Box id='match--profile--box'>
-                    <h2>{this.state.traveler.first_name}</h2>
-                    <h4>{this.state.traveler.nationality}</h4>
-                    <h4>{this.state.traveler.city}</h4>
-                    <h4>{this.state.traveler.age}</h4>
+                    <div id="main--info--match">
+                        <img id="match--profile--image" src={this.state.traveler.profile_picture} />
+                        <div>
+                            <h2>{this.state.traveler.first_name}</h2>
+                            <h4>{this.state.traveler.nationality}</h4>
+                            <h4>{this.state.traveler.city}</h4>
+                            <h4>{this.state.traveler.age}</h4>
+                        </div>
+                    </div>
                     <p>{this.state.traveler.question_1}</p>
                     <p>{this.state.traveler.answer_1}</p>
                     <p>{this.state.traveler.question_2}</p>

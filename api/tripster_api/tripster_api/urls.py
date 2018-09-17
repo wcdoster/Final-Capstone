@@ -33,6 +33,7 @@ router.register(r'travelers', TravelerViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^traveler-like/(\d+)/$', views.traveler_like_delete),
+    url(r'^traveler-match/(\d+)/$', views.traveler_match_delete),
     url(r'post-traveler/', views.post_traveler_view),
     url(r'traveler-list/', views.list_traveler_view),
     url(r'travelers/<int:pk>/', views.traveler_view),

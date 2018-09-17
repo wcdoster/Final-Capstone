@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
-import { Button, Input, Select } from 'bloomer'
+import { Label, Button, Input, Select } from 'bloomer'
+import request from 'superagent'
+
+const CLOUDINARY_UPLOAD_PRESET = 'jcszxosu'
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/tripster/upload';
 
 class CreateUserPage extends Component {
 
     state = {
+        profile_picture:"",
+        picture_1:"",
+        picture_2:"",
+        picture_3:"",
         first_name: "",
         nationality: {},
         answer_1: "",
@@ -65,7 +73,11 @@ class CreateUserPage extends Component {
             question_2: this.state.question_2,
             answer_2: this.state.answer_2,
             question_3: this.state.question_3,
-            answer_3: this.state.answer_3
+            answer_3: this.state.answer_3,
+            profile_picture: this.state.profile_picture,
+            picture_1: this.state.picture_1,
+            picture_2: this.state.picture_1,
+            picture_3: this.state.picture_1
         }
 
         console.log(traveler)
@@ -79,14 +91,39 @@ class CreateUserPage extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
-        .then(()=>{
-            this.props.setAppState({view:"discover"})
-        })
+            .then(() => {
+                this.props.setAppState({ view: "discover" })
+            })
+    }.bind(this)
+
+    handleImageUpload = function (file) {
+        let upload = request.post(CLOUDINARY_UPLOAD_URL)
+            .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+            .field('file', file);
+
+        upload.end((err, response) => {
+            if (err) {
+                console.error(err);
+            }
+
+            if (response.body.secure_url !== '') {
+                this.setState({
+                    profile_picture: response.body.secure_url
+                });
+            }
+        });
+    }.bind(this)
+
+    picture = function (e) {
+        const file = e.target.files[0]
+        this.handleImageUpload(file)
     }.bind(this)
 
     render() {
         return (
             <div>
+                <Label>Profile Picture</Label>
+                <Input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput" onChange={this.picture} />
                 <Input id="first_name" type="text" value={this.state.first_name} placeholder="first name" onChange={this.onChange} />
                 <Select id="nationality" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Nationality</option>

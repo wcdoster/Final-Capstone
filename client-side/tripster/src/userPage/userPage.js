@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Box } from 'bloomer'
+import './userPage.css'
 
 class UserPage extends Component {
     state = {
+        profile_picture: "",
         cityList: [],
         questionList: [],
         nationalityList: [],
@@ -48,6 +50,7 @@ class UserPage extends Component {
                 console.log(response)
                 const j = response[0]
                 this.setState({
+                    profile_picture: j.profile_picture,
                     first_name: j.first_name,
                     nationalityUrl: j.nationality,
                     answer_1: j.answer_1,
@@ -98,25 +101,39 @@ class UserPage extends Component {
             })
     }
 
+    logout = function () {
+        this.props.setAppState({ user: "", authToken: "" })
+        localStorage.clear()
+        this.props.setAppState({view: "login"})
+    }.bind(this)
+
 
 
     render() {
         return (
             <div>
                 <h1>Profile</h1>
-                <Box>
-                <h2>{this.state.first_name}</h2>
-                <h4>{this.state.nationality}</h4>
-                <h4>{this.state.city}</h4>
-                <h4>{this.state.age}</h4>
-                <p>{this.state.question_1}</p>
-                <p>{this.state.answer_1}</p>
-                <p>{this.state.question_2}</p>
-                <p>{this.state.answer_2}</p>
-                <p>{this.state.question_3}</p>
-                <p>{this.state.answer_3}</p>
+                <Box id="user--page--box">
+                    <div id="main--profile">
+                        <img id='profile--picture' src={this.state.profile_picture} />
+                        <div id="information">
+                            <h2>{this.state.first_name}</h2>
+                            <h4>{this.state.nationality}</h4>
+                            <h4>{this.state.city}</h4>
+                            <h4>{this.state.age}</h4>
+                        </div>
+                    </div>
+                    <p>{this.state.question_1}</p>
+                    <p>{this.state.answer_1}</p>
+                    <p>{this.state.question_2}</p>
+                    <p>{this.state.answer_2}</p>
+                    <p>{this.state.question_3}</p>
+                    <p>{this.state.answer_3}</p>
                 </Box>
+                <div id="user--page--buttons">
                 <Button isColor="success" id="editUserPage" onClick={this.props.setView}>Edit Profile</Button>
+                <Button isColor="warning" id="logout" onClick={this.logout}>Logout</Button>
+                </div>
             </div >
         )
     }

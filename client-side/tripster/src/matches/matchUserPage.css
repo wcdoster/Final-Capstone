@@ -3,3 +3,13 @@
     margin-left: 10%;
     margin-right: 10%
 }
+
+#main--info--match{
+    display: flex;
+    flex-direction: row
+}
+
+#match--profile--image{
+    width: auto;
+    height: 250px;
+}

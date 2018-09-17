@@ -88,12 +88,14 @@ class Login extends Component {
         return (
             <div>
                 <h1>Welcome to Tripster</h1>
-                <h2>Login</h2>
                 <Box id='login--box'>
+                    <h2 id="login--text">Login</h2>
                     <Input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
                     <Input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
-                    <Button isColor="success" onClick={this.login}>Login</Button>
-                    <a onClick={this.viewRegistration}>Register</a>
+                    <div id="login--buttons">
+                        <Button isColor="success" onClick={this.login}>Login</Button>
+                        <Button isColor="warning" onClick={this.viewRegistration}>Register</Button>
+                    </div>
                 </Box>
             </div>
         )

@@ -20,7 +20,14 @@
 }
 
 #message--box, #chat--box{
-    margin:0 20% 0 20%
+    margin:0 5% 0 5%
+}
+
+#chat--box{
+    max-height: 300px;
+    overflow-y: scroll;
+    display:flex;
+    flex-direction: column-reverse;
 }
 
 #textbox, #chat--submit{

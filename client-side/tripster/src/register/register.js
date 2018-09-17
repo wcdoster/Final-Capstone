@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Field, Input } from 'bloomer'
+import { Box, Button, Field, Input } from 'bloomer'
+import './register.css'
 
 class Registration extends Component {
 
@@ -60,13 +61,23 @@ class Registration extends Component {
         // })
     }.bind(this)
 
+    backButton = function(){
+        this.props.setAppState({view:'login'})
+    }.bind(this)
+
     render() {
         return (
             <div>
-                <h1>Registration</h1>
+                <h1>Welcome to Tripster</h1>
+                <Box id="register--box">
+                <h2 id="register--text">Registration</h2>
                 <Input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
                 <Input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
+                <div id='register--buttons'>
                 <Button isColor="success" onClick={this.register}>Submit</Button>
+                <Button isColor="primary" onClick={this.backButton}>Back</Button>
+                </div>
+                </Box>
             </div>
         )
     }

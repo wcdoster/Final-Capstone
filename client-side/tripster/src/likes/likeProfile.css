@@ -1,5 +1,16 @@
 #like--profile--box{
     margin-top: 20px;
     margin-left: 10%;
-    margin-right: 10%
+    margin-right: 10%;
+    margin-bottom: 50px;
+}
+
+#main--info--like{
+    display: flex;
+    flex-direction: row
+}
+
+#like--profile--image{
+    width: auto;
+    height: 250px;
 }

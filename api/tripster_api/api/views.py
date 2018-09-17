@@ -284,6 +284,15 @@ def traveler_match_view(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST','DELETE'])
+def traveler_match_delete(request, pk):
+    if request.method == 'DELETE':
+        print('delete')
+        match = get_object_or_404(TravelerMatch, pk=pk)
+        match.delete()
+        # return HttpResponse("ok")
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 @api_view(['GET', 'POST'])
 def traveler_chat_view(request):
     if request.method == 'GET':

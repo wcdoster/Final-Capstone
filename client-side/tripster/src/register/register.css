@@ -1,0 +1,15 @@
+#register--box{
+    margin-left:15%;
+    margin-right:15%;
+    margin-top: 30px;
+}
+
+#register--text{
+    margin-bottom: 20px;
+}
+
+#register--buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}

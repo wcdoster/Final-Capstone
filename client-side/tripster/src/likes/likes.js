@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Box } from 'bloomer'
 
+import './likes.css'
+
 class LikesPage extends Component {
 
     state = {
@@ -90,10 +92,15 @@ class LikesPage extends Component {
             return (
                 <div>
                     {this.state.userList.map(user => (
-                        <Box>
-                            <div id={user.likeId}>
-                                <h2>{user.first_name}</h2>
-                                <h4>{user.age}</h4>
+                         <Box className="match--box">
+                         <div id={user.url}>
+                             <div className="match--div">
+                                 <img className="match--image" src={user.profile_picture} />
+                                 <div>
+                             <h2>{user.first_name}</h2>
+                             <h4>{user.age}</h4>
+                             </div>
+                             </div>
                                 <Button isColor="primary" id={user.url} onClick={this.viewProfile}>View Profile</Button>
                                 <Button isColor="success" onClick={this.match}>Match</Button>
                                 <Button id={user.url} isColor="danger" onClick={this.remove}>Remove</Button>
