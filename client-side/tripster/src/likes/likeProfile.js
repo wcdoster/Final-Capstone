@@ -92,7 +92,7 @@ class LikeProfile extends Component {
                     <div id="main--info--like">
                         <img id="like--profile--image" src={this.state.traveler.profile_picture} />
                         <div>
-                            <h2>{this.state.traveler.first_name}</h2>
+                            <h3>{this.state.traveler.first_name}</h3>
                             <h4>{this.state.traveler.nationality}</h4>
                             <h4>{this.state.traveler.city}</h4>
                             <h4>{this.state.traveler.age}</h4>

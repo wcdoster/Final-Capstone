@@ -34,3 +34,6 @@
     display: inline-block
 }
 
+#chat--user--name{
+    color: lightcoral
+}

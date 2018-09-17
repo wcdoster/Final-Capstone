@@ -8,7 +8,8 @@ class Chat extends Component {
         message: "",
         currentUser: {},
         chatList: [],
-        time: new Date()
+        time: new Date(),
+        chatUser: {}
     }
 
     componentDidMount() {
@@ -115,7 +116,7 @@ class Chat extends Component {
     render() {
         return (
             <div>
-                <h1>Your Chat with</h1>
+                <h1>Your Chat with <div id="chat--user--name">{this.state.chatUser.first_name}</div></h1>
                 <Box id="chat--box">
                     {this.renderChat()}
                 </Box>

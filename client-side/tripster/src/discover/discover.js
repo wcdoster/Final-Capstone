@@ -185,6 +185,7 @@ class Discover extends Component {
         fetch(traveler.nationality)
             .then(r => r.json())
             .then(response => {
+                travelerObject.profile_picture = traveler.profile_picture
                 travelerObject.nationality = response.name
                 travelerObject.first_name = traveler.first_name
                 travelerObject.age = traveler.age
@@ -203,10 +204,15 @@ class Discover extends Component {
                 <div id='container'>
                     <h1>Discover</h1>
                     <Box id='discover--box'>
-                    <h3>{this.state.traveler.first_name}</h3>
-                    <h4>{this.state.traveler.nationality}</h4>
-                    <h4>{this.state.traveler.city}</h4>
-                    <h4>{this.state.traveler.age}</h4>
+                    <div id="main--info--match">
+                        <img id="match--profile--image" src={this.state.traveler.profile_picture} />
+                        <div>
+                            <h3>{this.state.traveler.first_name}</h3>
+                            <h4>{this.state.traveler.nationality}</h4>
+                            <h4>{this.state.traveler.city}</h4>
+                            <h4>{this.state.traveler.age}</h4>
+                        </div>
+                    </div>
                     <p>{this.state.traveler.question_1}</p>
                     <p>{this.state.traveler.answer_1}</p>
                     <p>{this.state.traveler.question_2}</p>
@@ -223,6 +229,7 @@ class Discover extends Component {
                 <div>
                     <h1>Discover</h1>
                     <h2>No More Travelers to View</h2>
+                    <h2>Check Back Later</h2>
                 </div>
             )
         }

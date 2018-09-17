@@ -78,7 +78,7 @@ class MatchPage extends Component {
                                 <div className="match--div">
                                     <img className="match--image" src={user.profile_picture} />
                                     <div>
-                                <h2>{user.first_name}</h2>
+                                <h3>{user.first_name}</h3>
                                 <h4>{user.age}</h4>
                                 </div>
                                 </div>

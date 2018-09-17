@@ -117,7 +117,7 @@ class UserPage extends Component {
                     <div id="main--profile">
                         <img id='profile--picture' src={this.state.profile_picture} />
                         <div id="information">
-                            <h2>{this.state.first_name}</h2>
+                            <h3>{this.state.first_name}</h3>
                             <h4>{this.state.nationality}</h4>
                             <h4>{this.state.city}</h4>
                             <h4>{this.state.age}</h4>

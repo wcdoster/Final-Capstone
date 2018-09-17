@@ -69,6 +69,7 @@ class LikesPage extends Component {
     }.bind(this)
 
     match = function (e) {
+        const travelerId = e.target.parentNode.id
         const match = { traveler_1: this.state.currentUser.url, traveler_2: e.target.previousSibling.id }
         fetch(`http://127.0.0.1:8000/traveler-match/`, {
             method: 'POST',
@@ -79,6 +80,15 @@ class LikesPage extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
+        fetch(`http://127.0.0.1:8000/traveler-like/${travelerId}/`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Token ${this.props.authToken}`
+            }
+        })
+            .then(() => {
+                this.initialize()
+            })
     }.bind(this)
 
 
@@ -92,18 +102,20 @@ class LikesPage extends Component {
             return (
                 <div>
                     {this.state.userList.map(user => (
-                         <Box className="match--box">
-                         <div id={user.url}>
-                             <div className="match--div">
-                                 <img className="match--image" src={user.profile_picture} />
-                                 <div>
-                             <h2>{user.first_name}</h2>
-                             <h4>{user.age}</h4>
-                             </div>
-                             </div>
+                        <Box className="match--box">
+                            <div id={user.url}>
+                                <div className="match--div">
+                                    <img className="match--image" src={user.profile_picture} />
+                                    <div>
+                                        <h2>{user.first_name}</h2>
+                                        <h4>{user.age}</h4>
+                                    </div>
+                                </div>
+                                <div>
                                 <Button isColor="primary" id={user.url} onClick={this.viewProfile}>View Profile</Button>
                                 <Button isColor="success" onClick={this.match}>Match</Button>
                                 <Button id={user.url} isColor="danger" onClick={this.remove}>Remove</Button>
+                                </div>
                             </div>
                         </Box>
                     ))}
