@@ -1,0 +1,29 @@
+.sender{
+    color: lightblue;
+    margin-right: 10%;
+    margin-left: 20%;
+    overflow-wrap: normal;
+    text-align: right
+}
+
+.receiver{
+    color: lightcoral;
+    margin-left: 10%;
+    margin-right:20%;
+    overflow-wrap: normal;
+    text-align: left;
+}
+
+#message--box{
+    display: flex;
+    flex-direction: row
+}
+
+#message--box, #chat--box{
+    margin:0 20% 0 20%
+}
+
+#textbox, #chat--submit{
+    display: inline-block
+}
+

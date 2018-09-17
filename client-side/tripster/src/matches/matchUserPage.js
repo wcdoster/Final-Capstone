@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Button, Box } from 'bloomer'
+import './matchUserPage.css'
 
 class MatchUserPage extends Component {
 
-    state={
+    state = {
         currentUser: {},
         traveler: {}
     }
@@ -28,7 +30,7 @@ class MatchUserPage extends Component {
             .then(r => r.json())
             .then(j => {
                 const result = j[0]
-                this.setState({currentUser: result })
+                this.setState({ currentUser: result })
             })
     }
 
@@ -69,25 +71,27 @@ class MatchUserPage extends Component {
             })
     }.bind(this)
 
-    viewChat = function(){
-        this.props.setAppState({view: 'chat', chatUser:this.state.traveler.url})
+    viewChat = function () {
+        this.props.setAppState({ view: 'chat', chatUser: this.state.traveler.url })
     }.bind(this)
 
     render() {
-        return(
+        return (
             <div>
-                <h2>{this.state.traveler.first_name}</h2>
-                <h4>{this.state.traveler.nationality}</h4>
-                <h4>{this.state.traveler.city}</h4>
-                <h4>{this.state.traveler.age}</h4>
-                <p>{this.state.traveler.question_1}</p>
-                <p>{this.state.traveler.answer_1}</p>
-                <p>{this.state.traveler.question_2}</p>
-                <p>{this.state.traveler.answer_2}</p>
-                <p>{this.state.traveler.question_3}</p>
-                <p>{this.state.traveler.answer_3}</p>
-                <button onClick={this.viewChat}>Chat</button>
-                <button onClick={this.remove}>Remove</button>
+                <Box id='match--profile--box'>
+                    <h2>{this.state.traveler.first_name}</h2>
+                    <h4>{this.state.traveler.nationality}</h4>
+                    <h4>{this.state.traveler.city}</h4>
+                    <h4>{this.state.traveler.age}</h4>
+                    <p>{this.state.traveler.question_1}</p>
+                    <p>{this.state.traveler.answer_1}</p>
+                    <p>{this.state.traveler.question_2}</p>
+                    <p>{this.state.traveler.answer_2}</p>
+                    <p>{this.state.traveler.question_3}</p>
+                    <p>{this.state.traveler.answer_3}</p>
+                    <Button isColor="primary" onClick={this.viewChat}>Chat</Button>
+                    <Button isColor="danger" onClick={this.remove}>Remove</Button>
+                </Box>
             </div>
         )
     }

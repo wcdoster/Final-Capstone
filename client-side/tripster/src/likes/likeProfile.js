@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Button, Box } from 'bloomer'
+import './likeProfile.css'
 
 class LikeProfile extends Component {
 
@@ -85,6 +87,7 @@ class LikeProfile extends Component {
     render() {
         return (
             <div>
+                <Box id='like--profile--box'>
                 <h2>{this.state.traveler.first_name}</h2>
                 <h4>{this.state.traveler.nationality}</h4>
                 <h4>{this.state.traveler.city}</h4>
@@ -95,8 +98,9 @@ class LikeProfile extends Component {
                 <p>{this.state.traveler.answer_2}</p>
                 <p>{this.state.traveler.question_3}</p>
                 <p>{this.state.traveler.answer_3}</p>
-                <button onClick={this.match}>Match</button>
-                <button onClick={this.remove}>Remove</button>
+                <Button isColor="success" onClick={this.match}>Match</Button>
+                <Button isColor="danger" onClick={this.remove}>Remove</Button>
+                </Box>
             </div>
         )
     }

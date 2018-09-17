@@ -1,0 +1,12 @@
+#navbar{
+    display: flex;
+}
+
+#logout{
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+.nav--comp{
+    margin-left: 5px
+}

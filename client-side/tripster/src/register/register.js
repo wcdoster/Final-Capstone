@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Field, Input } from 'bloomer'
 
 class Registration extends Component {
 
@@ -62,9 +63,10 @@ class Registration extends Component {
     render() {
         return (
             <div>
-                <input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
-                <input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
-                <input type="submit" onClick={this.register} value="submit" />
+                <h1>Registration</h1>
+                <Input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
+                <Input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
+                <Button isColor="success" onClick={this.register}>Submit</Button>
             </div>
         )
     }

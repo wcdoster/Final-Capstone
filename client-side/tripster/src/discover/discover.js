@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Button, Box } from 'bloomer'
+import './discover.css'
 
 class Discover extends Component {
 
@@ -199,6 +201,8 @@ class Discover extends Component {
         if (this.state.travelerList.length > 0) {
             return (
                 <div>
+                    <h1>Discover</h1>
+                    <Box id='discover--box'>
                     <h2>{this.state.traveler.first_name}</h2>
                     <h4>{this.state.traveler.nationality}</h4>
                     <h4>{this.state.traveler.city}</h4>
@@ -209,8 +213,9 @@ class Discover extends Component {
                     <p>{this.state.traveler.answer_2}</p>
                     <p>{this.state.traveler.question_3}</p>
                     <p>{this.state.traveler.answer_3}</p>
-                    <button onClick={this.like}>Like</button>
-                    <button onClick={this.remove}>Remove</button>
+                    <Button isColor="success" onClick={this.like}>Like</Button>
+                    <Button isColor="danger" onClick={this.remove}>Remove</Button>
+                    </Box>
                 </div>
             )
         } else {

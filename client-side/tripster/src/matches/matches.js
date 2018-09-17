@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Box } from 'bloomer'
 
 class MatchPage extends Component {
 
@@ -55,6 +56,33 @@ class MatchPage extends Component {
             })
     }
 
+    renderProfiles = function(){
+        if(this.state.userList.length > 0){
+            return(
+                <div>
+                {this.state.userList.map(user => (
+                    <Box>
+                    <div id={user.url}>
+                        <h2>{user.first_name}</h2>
+                        <h4>{user.age}</h4>
+                        <Button isColor="primary" id={user.url} onClick={this.viewProfile}>View Profile</Button>
+                        <Button isColor="success" onClick={this.viewChat}>Chat</Button>
+                        <Button isColor="danger">Remove</Button>
+                    </div>
+                    </Box>
+                ))}
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <h2>No Current Matches</h2>
+                    <h3>Go to Discover Page to Find More Travelers</h3>
+                </div>
+            )
+        }
+    }.bind(this)
+
     viewChat = function(e){
         this.props.setAppState({view: 'chat', chatUser: e.target.parentNode.id})
     }.bind(this)
@@ -66,15 +94,8 @@ class MatchPage extends Component {
     render() {
         return (
             <div>
-                {this.state.userList.map(user => (
-                    <div id={user.url}>
-                        <h2>{user.first_name}</h2>
-                        <h4>{user.age}</h4>
-                        <button id={user.url} onClick={this.viewProfile}>View Profile</button>
-                        <button onClick={this.viewChat}>Chat</button>
-                        <button>Remove</button>
-                    </div>
-                ))}
+                <h1>Matches</h1>
+                {this.renderProfiles()}
             </div>
         )
     }

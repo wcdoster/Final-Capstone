@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Input, Select } from 'bloomer'
 
 class CreateUserPage extends Component {
 
@@ -78,47 +79,50 @@ class CreateUserPage extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
+        .then(()=>{
+            this.props.setAppState({view:"discover"})
+        })
     }.bind(this)
 
     render() {
         return (
             <div>
-                <input id="first_name" type="text" value={this.state.first_name} placeholder="first name" onChange={this.onChange} />
-                <select id="nationality" onChange={this.onChange} >
+                <Input id="first_name" type="text" value={this.state.first_name} placeholder="first name" onChange={this.onChange} />
+                <Select id="nationality" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Nationality</option>
                     {this.state.nationalityList.map(p => (
                         <option value={p.url}>{p.name}</option>
                     ))}
-                </select>
-                <input id="age" type="text" value={this.state.age} placeholder="age" onChange={this.onChange} />
-                <select id="question_1" onChange={this.onChange} >
+                </Select>
+                <Input id="age" type="text" value={this.state.age} placeholder="age" onChange={this.onChange} />
+                <Select id="question_1" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Question</option>
                     {this.state.questionList.map(p => (
                         <option value={p.url}>{p.question}</option>
                     ))}
-                </select>
-                <input id="answer_1" type="text" value={this.state.answer_1} placeholder="answer" onChange={this.onChange} />
-                <select id="question_2" onChange={this.onChange} >
+                </Select>
+                <Input id="answer_1" type="text" value={this.state.answer_1} placeholder="answer" onChange={this.onChange} />
+                <Select id="question_2" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Question</option>
                     {this.state.questionList.map(p => (
                         <option value={p.url}>{p.question}</option>
                     ))}
-                </select>
-                <input id="answer_2" type="text" value={this.state.answer_2} placeholder="answer" onChange={this.onChange} />
-                <select id="question_3" onChange={this.onChange} >
+                </Select>
+                <Input id="answer_2" type="text" value={this.state.answer_2} placeholder="answer" onChange={this.onChange} />
+                <Select id="question_3" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Question</option>
                     {this.state.questionList.map(p => (
                         <option value={p.url}>{p.question}</option>
                     ))}
-                </select>
-                <input id="answer_3" type="text" value={this.state.answer_3} placeholder="answer" onChange={this.onChange} />
-                <select id="city" onChange={this.onChange} >
+                </Select>
+                <Input id="answer_3" type="text" value={this.state.answer_3} placeholder="answer" onChange={this.onChange} />
+                <Select id="city" onChange={this.onChange} >
                     <option value="" selected disabled hidden>City</option>
                     {this.state.cityList.map(p => (
                         <option value={p.url}>{p.name}</option>
                     ))}
-                </select>
-                <input type="submit" value="submit" onClick={this.saveUser} />
+                </Select>
+                <Button isColor="success" onClick={this.saveUser}>Register</Button>
             </div >
         )
     }

@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Button, Field, Input, Box } from 'bloomer'
+
+import './login.css'
 
 class Login extends Component {
 
@@ -42,7 +45,7 @@ class Login extends Component {
                     .then(response => {
                         console.log(response)
                         const j = response[0]
-                        this.props.setAppState({ userId: j.user, travelerUrl:j.url })
+                        this.props.setAppState({ userId: j.user, travelerUrl: j.url })
                         // this.props.getLikes()
                     })
             })
@@ -84,11 +87,14 @@ class Login extends Component {
 
         return (
             <div>
-                <h1>Login</h1>
-                <input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
-                <input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
-                <input type="submit" onClick={this.login} />
-                <a onClick={this.viewRegistration}>Register</a>
+                <h1>Welcome to Tripster</h1>
+                <h2>Login</h2>
+                <Box id='login--box'>
+                    <Input type="text" placeholder="username" value={this.state.username} onChange={this.onChange} />
+                    <Input type="password" placeholder="password" value={this.state.password} onChange={this.onChange} />
+                    <Button isColor="success" onClick={this.login}>Login</Button>
+                    <a onClick={this.viewRegistration}>Register</a>
+                </Box>
             </div>
         )
     }

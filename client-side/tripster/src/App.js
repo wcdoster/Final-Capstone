@@ -139,7 +139,7 @@ class App extends Component {
       case "register":
         return <Registration setAppState={this.setAppState} />
       case "createUserPage":
-        return <CreateUserPage authToken={this.state.authToken} userId={this.state.userId} initialize={this.initialize} />
+        return <CreateUserPage setAppState={this.setAppState} authToken={this.state.authToken} userId={this.state.userId} initialize={this.initialize} />
       case "profile":
         return <UserPage setView={this.setView} userId={this.state.userId} initialize={this.initialize} />
       case "editUserPage":
@@ -164,7 +164,6 @@ class App extends Component {
     return (
       <div>
         {this.showNav()}
-        < h1 > Welcome to Tripster</h1 >
         {this.showView()}
       </div >
     )

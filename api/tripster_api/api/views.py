@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.contrib.auth.models import User
@@ -201,7 +201,7 @@ class TravelerLikeDetail(viewsets.ModelViewSet):
 
 
     def delete(self, request, pk, format=None):
-        snippet = self.TravelerLike.get_object(pk)
+        snippet = self.TravelerLike.objects.filter(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -235,13 +235,15 @@ def traveler_like_view(request):
     #     like.delete()
     #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['DELETE'])
+@api_view(['POST','DELETE'])
 def traveler_like_delete(request, pk):
-    print('delete')
-    like = TravelerLike.get_object(pk)
-    print(like)
-    like.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.method == 'DELETE':
+        print('delete')
+        like = get_object_or_404(TravelerLike, pk=pk)
+        print(like)
+        like.delete()
+        # return HttpResponse("ok")
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def traveler_remove_view(request):

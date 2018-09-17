@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Box } from 'bloomer'
 
 class UserPage extends Component {
     state = {
@@ -102,7 +103,8 @@ class UserPage extends Component {
     render() {
         return (
             <div>
-                <button id="editUserPage" onClick={this.props.setView}>Edit Profile</button>
+                <h1>Profile</h1>
+                <Box>
                 <h2>{this.state.first_name}</h2>
                 <h4>{this.state.nationality}</h4>
                 <h4>{this.state.city}</h4>
@@ -113,6 +115,8 @@ class UserPage extends Component {
                 <p>{this.state.answer_2}</p>
                 <p>{this.state.question_3}</p>
                 <p>{this.state.answer_3}</p>
+                </Box>
+                <Button isColor="success" id="editUserPage" onClick={this.props.setView}>Edit Profile</Button>
             </div >
         )
     }
