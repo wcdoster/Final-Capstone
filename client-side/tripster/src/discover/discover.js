@@ -201,7 +201,7 @@ class Discover extends Component {
     renderUser = function () {
         if (this.state.travelerList.length > 0) {
             return (
-                <div id='container'>
+                <div id='container' className="container--div">
                     <h1>Discover</h1>
                     <Box id='discover--box'>
                     <div id="main--info--match">

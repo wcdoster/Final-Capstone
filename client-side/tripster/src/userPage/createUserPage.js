@@ -121,7 +121,7 @@ class CreateUserPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container--div">
                 <Label>Profile Picture</Label>
                 <Input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput" onChange={this.picture} />
                 <Input id="first_name" type="text" value={this.state.first_name} placeholder="first name" onChange={this.onChange} />

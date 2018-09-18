@@ -25,7 +25,8 @@ class App extends Component {
     viewingUserUrl: "",
     chatUser: "",
     likeList: [],
-    travelerUrl: ""
+    travelerUrl: "",
+    likeProfileId: ""
   }
 
   componentDidMount() {
@@ -132,7 +133,7 @@ class App extends Component {
       case 'matches':
         return <MatchPage setAppState={this.setAppState} />
       case "likeProfile":
-        return <LikeProfile viewingUserUrl={this.state.viewingUserUrl} authToken={this.state.authToken} />
+        return <LikeProfile likeProfileId={this.state.likeProfileId} setAppState={this.setAppState} viewingUserUrl={this.state.viewingUserUrl} authToken={this.state.authToken} />
       case "likes":
         return <LikesPage setAppState={this.setAppState} authToken={this.state.authToken} />
       case "discover":

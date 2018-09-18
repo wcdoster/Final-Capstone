@@ -111,7 +111,7 @@ class UserPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container--div">
                 <h1>Profile</h1>
                 <Box id="user--page--box">
                     <div id="main--profile">

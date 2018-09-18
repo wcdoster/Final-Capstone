@@ -78,7 +78,7 @@ class MatchUserPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container--div">
                 <Box id='match--profile--box'>
                     <div id="main--info--match">
                         <img id="match--profile--image" src={this.state.traveler.profile_picture} />

@@ -69,7 +69,7 @@ class LikesPage extends Component {
     }.bind(this)
 
     match = function (e) {
-        const travelerId = e.target.parentNode.id
+        const travelerId = e.target.nextSibling.id
         const match = { traveler_1: this.state.currentUser.url, traveler_2: e.target.previousSibling.id }
         fetch(`http://127.0.0.1:8000/traveler-match/`, {
             method: 'POST',
@@ -94,13 +94,13 @@ class LikesPage extends Component {
 
 
     viewProfile = function (e) {
-        this.props.setAppState({ view: 'likeProfile', viewingUserUrl: e.target.id })
+        this.props.setAppState({ view: 'likeProfile', viewingUserUrl: e.target.id, likeProfileId: e.target.nextSibling.nextSibling.id })
     }.bind(this)
 
     renderProfiles = function () {
         if (this.state.userList.length > 0) {
             return (
-                <div>
+                <div className="container--div">
                     {this.state.userList.map(user => (
                         <Box className="match--box">
                             <div id={user.url}>
@@ -111,9 +111,9 @@ class LikesPage extends Component {
                                         <h4>{user.age}</h4>
                                     </div>
                                 </div>
-                                <div>
-                                <Button isColor="primary" id={user.url} onClick={this.viewProfile}>View Profile</Button>
+                                <Button isColor="primary" className="broken--div" id={user.url} onClick={this.viewProfile}>View Profile</Button>
                                 <Button isColor="success" onClick={this.match}>Match</Button>
+                                <div id={user.likeId} className="broken--div">
                                 <Button id={user.url} isColor="danger" onClick={this.remove}>Remove</Button>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ class LikesPage extends Component {
             return (
                 <div>
                     <h2>No Current Likes</h2>
-                    <h3>Go to Discover Page to Find More Travelers</h3>
+                    <h2>Go to Discover Page to Find More Travelers</h2>
                 </div>
             )
         }

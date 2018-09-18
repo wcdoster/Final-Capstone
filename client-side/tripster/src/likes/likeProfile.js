@@ -30,13 +30,15 @@ class LikeProfile extends Component {
             .then(r => r.json())
             .then(j => {
                 const result = j[0]
-                this.setState({currentUser: result })
+                this.setState({ currentUser: result })
             })
     }
 
     match = function () {
-        const match = {traveler_1: this.state.currentUser.url, traveler_2: this.state.traveler.url}
-        fetch(`http://127.0.0.1:8000/traveler-match/`,{
+        debugger
+        const likeId = this.props.likeProfileId
+        const match = { traveler_1: this.state.currentUser.url, traveler_2: this.state.traveler.url }
+        fetch(`http://127.0.0.1:8000/traveler-match/`, {
             method: 'POST',
             body: JSON.stringify(match),
             headers: {
@@ -45,6 +47,17 @@ class LikeProfile extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
+            .then(() => {
+                fetch(`http://127.0.0.1:8000/traveler-like/${likeId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        "Authorization": `Token ${this.props.authToken}`
+                    }
+                })
+                    .then(() => {
+                        this.props.setAppState({ view: 'likes' })
+                    })
+            })
     }.bind(this)
 
     makeTraveler = function (traveler) {
@@ -85,9 +98,35 @@ class LikeProfile extends Component {
             })
     }.bind(this)
 
+    remove = function () {
+        const likeId = this.props.likeProfileId
+        const remove = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
+        fetch(`http://127.0.0.1:8000/traveler-like/${likeId}/`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Token ${this.props.authToken}`
+            }
+        })
+        .then(()=>{
+            debugger
+            fetch('http://127.0.0.1:8000/traveler-remove/', {
+            method: 'POST',
+            body: JSON.stringify(remove),
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json, text/plain',
+                "authorization": `Token ${this.state.authToken}`
+            }
+        })
+            .then(() => {
+                this.props.setAppState({ view: 'likes' })
+            })
+        })
+    }.bind(this)
+
     render() {
         return (
-            <div>
+            <div className="container--div">
                 <Box id='like--profile--box'>
                     <div id="main--info--like">
                         <img id="like--profile--image" src={this.state.traveler.profile_picture} />
@@ -98,14 +137,14 @@ class LikeProfile extends Component {
                             <h4>{this.state.traveler.age}</h4>
                         </div>
                     </div>
-                <p>{this.state.traveler.question_1}</p>
-                <p>{this.state.traveler.answer_1}</p>
-                <p>{this.state.traveler.question_2}</p>
-                <p>{this.state.traveler.answer_2}</p>
-                <p>{this.state.traveler.question_3}</p>
-                <p>{this.state.traveler.answer_3}</p>
-                <Button isColor="success" onClick={this.match}>Match</Button>
-                <Button isColor="danger" onClick={this.remove}>Remove</Button>
+                    <p>{this.state.traveler.question_1}</p>
+                    <p>{this.state.traveler.answer_1}</p>
+                    <p>{this.state.traveler.question_2}</p>
+                    <p>{this.state.traveler.answer_2}</p>
+                    <p>{this.state.traveler.question_3}</p>
+                    <p>{this.state.traveler.answer_3}</p>
+                    <Button isColor="success" onClick={this.match}>Match</Button>
+                    <Button isColor="danger" onClick={this.remove}>Remove</Button>
                 </Box>
             </div>
         )

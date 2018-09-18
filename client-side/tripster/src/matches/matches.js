@@ -71,7 +71,7 @@ class MatchPage extends Component {
     renderProfiles = function () {
         if (this.state.userList.length > 0) {
             return (
-                <div>
+                <div className="container--div">
                     {this.state.userList.map(user => (
                         <Box className="match--box">
                             <div id={user.url}>
@@ -94,7 +94,7 @@ class MatchPage extends Component {
             return (
                 <div>
                     <h2>No Current Matches</h2>
-                    <h3>Go to Discover Page to Find More Travelers</h3>
+                    <h2>Go to Discover Page to Find More Travelers</h2>
                 </div>
             )
         }
