@@ -14,7 +14,7 @@ class Login extends Component {
         // debugger
         console.log("postAuth called")
         console.log("user?", user)
-        return fetch(`http://127.0.0.1:8000/${route}/`, {
+        return fetch(`http://178.128.184.205/${route}/`, {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -35,7 +35,7 @@ class Login extends Component {
                     username: "",
                     password: ""
                 })
-                fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+                fetch(`http://178.128.184.205/loggedin-traveler/`, {
                     method: 'GET',
                     headers: {
                         "authorization": `Token ${response.token}`
@@ -49,18 +49,6 @@ class Login extends Component {
                         // this.props.getLikes()
                     })
             })
-        // .then(()=>{
-        //     fetch(`http://127.0.0.1:8000/users/?get_single_user=True`,{
-        //         method: 'GET',
-        //         headers: {
-        //             "Content-type": "application/json",
-        //             'Accept': 'application/json, text/plain',
-        //             "authorization": `Token ${this.props.authToken}`
-        //         }
-        //     })
-        //     .then(r=>r.json())
-        //     .then(response=>console.log(response))
-        // })
     }.bind(this)
 
     onChange = function (evt) {

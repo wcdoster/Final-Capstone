@@ -19,7 +19,7 @@ class Registration extends Component {
         // debugger
         console.log("postAuth called")
         console.log("user?", user)
-        fetch(`http://127.0.0.1:8000/${route}/`, {
+        fetch(`http://178.128.184.205/${route}/`, {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {

@@ -17,7 +17,7 @@ class LikesPage extends Component {
     initialize = function () {
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`
+        fetch(`http://178.128.184.205/loggedin-traveler/`
             , {
                 method: 'GET',
                 headers: {
@@ -28,7 +28,7 @@ class LikesPage extends Component {
             .then(j => {
                 const result = j[0]
                 this.setState({ currentUser: result })
-                fetch(`http://127.0.0.1:8000/traveler-like/`
+                fetch(`http://178.128.184.205/traveler-like/`
                     , {
                         method: 'GET',
                         headers: {
@@ -71,7 +71,7 @@ class LikesPage extends Component {
     match = function (e) {
         const travelerId = e.target.nextSibling.id
         const match = { traveler_1: this.state.currentUser.url, traveler_2: e.target.previousSibling.id }
-        fetch(`http://127.0.0.1:8000/traveler-match/`, {
+        fetch(`http://178.128.184.205/traveler-match/`, {
             method: 'POST',
             body: JSON.stringify(match),
             headers: {
@@ -80,7 +80,7 @@ class LikesPage extends Component {
                 "authorization": `Token ${this.props.authToken}`
             }
         })
-        fetch(`http://127.0.0.1:8000/traveler-like/${travelerId}/`, {
+        fetch(`http://178.128.184.205/traveler-like/${travelerId}/`, {
             method: 'DELETE',
             headers: {
                 "Authorization": `Token ${this.props.authToken}`
@@ -135,7 +135,7 @@ class LikesPage extends Component {
         // debugger
         const travelerId = e.target.parentNode.id
         const travelerRemove = { sender: this.state.currentUser.url, receiver: e.target.id }
-        fetch('http://127.0.0.1:8000/traveler-remove/', {
+        fetch('http://178.128.184.205/traveler-remove/', {
             method: 'POST',
             body: JSON.stringify(travelerRemove),
             headers: {
@@ -145,7 +145,7 @@ class LikesPage extends Component {
             }
         })
             .then(() => {
-                fetch(`http://127.0.0.1:8000/traveler-like/${travelerId}/`, {
+                fetch(`http://178.128.184.205/traveler-like/${travelerId}/`, {
                     method: 'DELETE',
                     headers: {
                         "Authorization": `Token ${this.props.authToken}`

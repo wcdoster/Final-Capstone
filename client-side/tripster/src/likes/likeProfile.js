@@ -20,7 +20,7 @@ class LikeProfile extends Component {
             })
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`,
+        fetch(`http://178.128.184.205/loggedin-traveler/`,
             {
                 method: 'GET',
                 headers: {
@@ -38,7 +38,7 @@ class LikeProfile extends Component {
         debugger
         const likeId = this.props.likeProfileId
         const match = { traveler_1: this.state.currentUser.url, traveler_2: this.state.traveler.url }
-        fetch(`http://127.0.0.1:8000/traveler-match/`, {
+        fetch(`http://178.128.184.205/traveler-match/`, {
             method: 'POST',
             body: JSON.stringify(match),
             headers: {
@@ -48,7 +48,7 @@ class LikeProfile extends Component {
             }
         })
             .then(() => {
-                fetch(`http://127.0.0.1:8000/traveler-like/${likeId}/`, {
+                fetch(`http://178.128.184.205/traveler-like/${likeId}/`, {
                     method: 'DELETE',
                     headers: {
                         "Authorization": `Token ${this.props.authToken}`
@@ -101,7 +101,7 @@ class LikeProfile extends Component {
     remove = function () {
         const likeId = this.props.likeProfileId
         const remove = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
-        fetch(`http://127.0.0.1:8000/traveler-like/${likeId}/`, {
+        fetch(`http://178.128.184.205/traveler-like/${likeId}/`, {
             method: 'DELETE',
             headers: {
                 "Authorization": `Token ${this.props.authToken}`
@@ -109,7 +109,7 @@ class LikeProfile extends Component {
         })
         .then(()=>{
             debugger
-            fetch('http://127.0.0.1:8000/traveler-remove/', {
+            fetch('http://178.128.184.205/traveler-remove/', {
             method: 'POST',
             body: JSON.stringify(remove),
             headers: {

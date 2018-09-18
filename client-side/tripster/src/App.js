@@ -52,7 +52,7 @@ class App extends Component {
     const matchList = []
     const existingList = []
     const discoverList = []
-    return fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+    return fetch(`http://178.128.184.205/loggedin-traveler/`, {
       method: 'GET',
       headers: {
         "authorization": `Token ${authToken}`
@@ -64,7 +64,7 @@ class App extends Component {
         const j = response[0]
         const travelerUrl = j.url
         this.setState({ userId: j.user, travelerUrl: j.url })
-        fetch(`http://127.0.0.1:8000/traveler-like/`, {
+        fetch(`http://178.128.184.205/traveler-like/`, {
           method: 'GET',
           headers: {
             "authorization": `Token ${authToken}`
@@ -80,7 +80,7 @@ class App extends Component {
                 existingList.push(like.receiver)
               }
             })
-            fetch(`http://127.0.0.1:8000/traveler-match/`, {
+            fetch(`http://178.128.184.205/traveler-match/`, {
               method: 'GET',
               headers: {
                 "authorization": `Token ${this.state.authToken}`
@@ -95,7 +95,7 @@ class App extends Component {
                     existingList.push(match.traveler_2)
                   }
                 })
-                fetch(`http://127.0.0.1:8000/travelers/`)
+                fetch(`http://178.128.184.205/travelers/`)
                   .then(r => r.json())
                   .then(response => {
                     response

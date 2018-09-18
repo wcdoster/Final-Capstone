@@ -17,7 +17,7 @@ class MatchPage extends Component {
     initialize = function () {
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`
+        fetch(`http://178.128.184.205/loggedin-traveler/`
             , {
                 method: 'GET',
                 headers: {
@@ -28,7 +28,7 @@ class MatchPage extends Component {
             .then(j => {
                 const result = j[0]
                 this.setState({ currentUser: result })
-                fetch(`http://127.0.0.1:8000/traveler-match/`
+                fetch(`http://178.128.184.205/traveler-match/`
                     , {
                         method: 'GET',
                         headers: {

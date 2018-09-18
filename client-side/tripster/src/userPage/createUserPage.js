@@ -28,7 +28,7 @@ class CreateUserPage extends Component {
     }
 
     componentDidMount() {
-        fetch('http://127.0.0.1:8000/cities/')
+        fetch('http://178.128.184.205/cities/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -36,7 +36,7 @@ class CreateUserPage extends Component {
                     cityList: response
                 })
             })
-        fetch('http://127.0.0.1:8000/nationalities/')
+        fetch('http://178.128.184.205/nationalities/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -44,7 +44,7 @@ class CreateUserPage extends Component {
                     nationalityList: response
                 })
             })
-        fetch('http://127.0.0.1:8000/questions/')
+        fetch('http://178.128.184.205/questions/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -63,7 +63,7 @@ class CreateUserPage extends Component {
     saveUser = function () {
 
         const traveler = {
-            user: `http://127.0.0.1:8000/users/${this.props.userId}/`,
+            user: `http://178.128.184.205/users/${this.props.userId}/`,
             first_name: this.state.first_name,
             nationality: this.state.nationality,
             city: this.state.city,
@@ -82,7 +82,7 @@ class CreateUserPage extends Component {
 
         console.log(traveler)
 
-        fetch(`http://127.0.0.1:8000/post-traveler/`, {
+        fetch(`http://178.128.184.205/post-traveler/`, {
             method: 'POST',
             body: JSON.stringify(traveler),
             headers: {
@@ -123,7 +123,9 @@ class CreateUserPage extends Component {
         return (
             <div className="container--div">
                 <Label>Profile Picture</Label>
-                <Input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput" onChange={this.picture} />
+                <Input type="file" 
+                // capture="camera" 
+                accept="image/*" id="cameraInput" name="cameraInput" onChange={this.picture} />
                 <Input id="first_name" type="text" value={this.state.first_name} placeholder="first name" onChange={this.onChange} />
                 <Select id="nationality" onChange={this.onChange} >
                     <option value="" selected disabled hidden>Nationality</option>

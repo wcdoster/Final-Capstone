@@ -20,7 +20,7 @@ class MatchUserPage extends Component {
             })
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`,
+        fetch(`http://178.128.184.205/loggedin-traveler/`,
             {
                 method: 'GET',
                 headers: {

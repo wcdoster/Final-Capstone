@@ -70,7 +70,7 @@ class EditUserProfile extends Component {
 
         console.log(traveler)
 
-        fetch(`http://127.0.0.1:8000/travelers/${this.state.id}/`, {
+        fetch(`http://178.128.184.205/travelers/${this.state.id}/`, {
             method: 'PUT',
             body: JSON.stringify(traveler),
             headers: {
@@ -105,7 +105,7 @@ class EditUserProfile extends Component {
     componentDidMount() {
 
 
-        fetch('http://127.0.0.1:8000/cities/')
+        fetch('http://178.128.184.205/cities/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -113,7 +113,7 @@ class EditUserProfile extends Component {
                     cityList: response
                 })
             })
-        fetch('http://127.0.0.1:8000/nationalities/')
+        fetch('http://178.128.184.205/nationalities/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -121,7 +121,7 @@ class EditUserProfile extends Component {
                     nationalityList: response
                 })
             })
-        fetch('http://127.0.0.1:8000/questions/')
+        fetch('http://178.128.184.205/questions/')
             .then(r => r.json())
             .then(response => {
                 console.log(response)
@@ -132,7 +132,7 @@ class EditUserProfile extends Component {
 
 
         const authToken = localStorage.getItem("token")
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+        fetch(`http://178.128.184.205/loggedin-traveler/`, {
             method: 'GET',
             headers: {
                 "authorization": `Token ${authToken}`

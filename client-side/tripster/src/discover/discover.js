@@ -15,7 +15,7 @@ class Discover extends Component {
     componentDidMount() {
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`,
+        fetch(`http://178.128.184.205/loggedin-traveler/`,
             {
                 method: 'GET',
                 headers: {
@@ -29,7 +29,7 @@ class Discover extends Component {
                 const matchList = []
                 const existingList = []
                 const discoverList = []
-                return fetch(`http://127.0.0.1:8000/loggedin-traveler/`, {
+                return fetch(`http://178.128.184.205/loggedin-traveler/`, {
                     method: 'GET',
                     headers: {
                         "authorization": `Token ${authToken}`
@@ -42,7 +42,7 @@ class Discover extends Component {
                         const travelerUrl = j.url
                         const travelerCity = j.city
                         this.setState({ userId: j.user, travelerUrl: j.url })
-                        fetch(`http://127.0.0.1:8000/traveler-like/`, {
+                        fetch(`http://178.128.184.205/traveler-like/`, {
                             method: 'GET',
                             headers: {
                                 "authorization": `Token ${authToken}`
@@ -58,7 +58,7 @@ class Discover extends Component {
                                         existingList.push(like.receiver)
                                     }
                                 })
-                                fetch(`http://127.0.0.1:8000/traveler-remove/`, {
+                                fetch(`http://178.128.184.205/traveler-remove/`, {
                                     method: 'GET',
                                     headers: {
                                         "authorization": `Token ${this.state.authToken}`
@@ -73,7 +73,7 @@ class Discover extends Component {
                                                 existingList.push(remove.receiver)
                                             }
                                         })
-                                        fetch(`http://127.0.0.1:8000/traveler-match/`, {
+                                        fetch(`http://178.128.184.205/traveler-match/`, {
                                             method: 'GET',
                                             headers: {
                                                 "authorization": `Token ${this.state.authToken}`
@@ -88,7 +88,7 @@ class Discover extends Component {
                                                         existingList.push(match.traveler_2)
                                                     }
                                                 })
-                                                fetch(`http://127.0.0.1:8000/travelers/`)
+                                                fetch(`http://178.128.184.205/travelers/`)
                                                     .then(r => r.json())
                                                     .then(response => {
                                                         response
@@ -119,7 +119,7 @@ class Discover extends Component {
     like = function () {
         const travelerLike = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
 
-        fetch('http://127.0.0.1:8000/traveler-like/', {
+        fetch('http://178.128.184.205/traveler-like/', {
             method: 'POST',
             body: JSON.stringify(travelerLike),
             headers: {
@@ -141,7 +141,7 @@ class Discover extends Component {
     remove = function () {
         const travelerRemove = { sender: this.state.currentUser.url, receiver: this.state.traveler.url }
 
-        fetch('http://127.0.0.1:8000/traveler-remove/', {
+        fetch('http://178.128.184.205/traveler-remove/', {
             method: 'POST',
             body: JSON.stringify(travelerRemove),
             headers: {

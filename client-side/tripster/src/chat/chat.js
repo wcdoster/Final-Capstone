@@ -15,7 +15,7 @@ class Chat extends Component {
     componentDidMount() {
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })
-        fetch(`http://127.0.0.1:8000/loggedin-traveler/`
+        fetch(`http://178.128.184.205/loggedin-traveler/`
             , {
                 method: 'GET',
                 headers: {
@@ -43,7 +43,7 @@ class Chat extends Component {
     }
 
     getChat = function () {
-        fetch(`http://127.0.0.1:8000/traveler-chat/`, {
+        fetch(`http://178.128.184.205/traveler-chat/`, {
             method: 'GET',
             headers: {
                 "authorization": `Token ${this.props.authToken}`
@@ -71,7 +71,7 @@ class Chat extends Component {
 
     submitMessage = function () {
         const chat = { sender: this.state.currentUser.url, receiver: this.props.chatUser, message: this.state.message }
-        fetch(`http://127.0.0.1:8000/traveler-chat/`, {
+        fetch(`http://178.128.184.205/traveler-chat/`, {
             method: 'POST',
             body: JSON.stringify(chat),
             headers: {
