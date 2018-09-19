@@ -35,8 +35,7 @@
 }
 
 .container--div{
-  max-height: 85%;
-  overflow-y: scroll
+  margin-bottom: 50px;
 }
 
 img {

@@ -9,7 +9,8 @@ class Chat extends Component {
         currentUser: {},
         chatList: [],
         time: new Date(),
-        chatUser: {}
+        chatUser: {},
+        interval: ""
     }
 
     componentDidMount() {
@@ -38,9 +39,17 @@ class Chat extends Component {
             .then(r => r.json())
             .then(result => {
                 this.setState({ chatUser: result })
+                this.interval()
             })
 
     }
+
+    interval = function(){
+        const interval = setInterval(()=>{
+            this.getChat()
+        },1000)
+        this.setState({interval:interval})
+    }.bind(this)
 
     getChat = function () {
         fetch(`http://178.128.184.205/traveler-chat/`, {
