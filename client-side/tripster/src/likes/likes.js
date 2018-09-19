@@ -37,15 +37,12 @@ class LikesPage extends Component {
                     })
                     .then(r => r.json())
                     .then(result => {
-                        console.log(result)
                         const likeList = []
                         result.forEach(like => {
                             if (like.receiver === this.state.currentUser.url) {
                                 likeList.push(like)
                             }
                         });
-                        console.log(likeList)
-                        // debugger
                         const userList = []
                         if (likeList.length > 0) {
                             likeList.forEach(thisLike => {
@@ -111,10 +108,12 @@ class LikesPage extends Component {
                                         <h4>{user.age}</h4>
                                     </div>
                                 </div>
+                                <div id="fixing--div">
                                 <Button isColor="primary" className="broken--div" id={user.url} onClick={this.viewProfile}>View Profile</Button>
-                                <Button isColor="success" onClick={this.match}>Match</Button>
+                                <Button isColor="success" className="broken--div" onClick={this.match}>Match</Button>
                                 <div id={user.likeId} className="broken--div">
-                                <Button id={user.url} isColor="danger" onClick={this.remove}>Remove</Button>
+                                <Button id={user.url} isColor="danger" className="broken--div" onClick={this.remove}>Remove</Button>
+                                </div>
                                 </div>
                             </div>
                         </Box>

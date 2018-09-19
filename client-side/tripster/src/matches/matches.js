@@ -37,7 +37,6 @@ class MatchPage extends Component {
                     })
                     .then(r => r.json())
                     .then(result => {
-                        console.log(result)
                         const matchList = []
                         result.forEach(match => {
                             if (match.traveler_1 === this.state.currentUser.url) {
@@ -46,7 +45,6 @@ class MatchPage extends Component {
                                 matchList.push({ url: match.traveler_1, id: match.id })
                             }
                         });
-                        console.log(matchList)
                         const userList = []
                         if (matchList.length > 0) {
                             matchList.forEach(person => {

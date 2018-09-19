@@ -31,7 +31,6 @@ class UserPage extends Component {
                 .then(r => r.json())
                 .then(result => {
                     debugger
-                    console.log(result)
                     return result.name
                 })
         }
@@ -47,7 +46,6 @@ class UserPage extends Component {
         })
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 const j = response[0]
                 this.setState({
                     profile_picture: j.profile_picture,

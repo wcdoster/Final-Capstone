@@ -14,9 +14,7 @@ class MatchUserPage extends Component {
         fetch(url)
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 const traveler = this.makeTraveler(response)
-                // this.setState({traveler: traveler})
             })
         const authToken = localStorage.getItem('token')
         this.setState({ authToken: authToken })

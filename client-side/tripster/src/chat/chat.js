@@ -90,7 +90,6 @@ class Chat extends Component {
             }
         })
             .then(() => {
-                console.log(this.state.message)
                 this.setState({ message: "" })
                 this.getChat()
             })

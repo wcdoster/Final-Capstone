@@ -14,7 +14,6 @@ class LikeProfile extends Component {
         fetch(url)
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 const traveler = this.makeTraveler(response)
                 // this.setState({traveler: traveler})
             })

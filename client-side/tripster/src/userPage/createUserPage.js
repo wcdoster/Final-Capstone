@@ -32,7 +32,6 @@ class CreateUserPage extends Component {
         fetch('http://178.128.184.205/cities/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     cityList: response
                 })
@@ -40,7 +39,6 @@ class CreateUserPage extends Component {
         fetch('http://178.128.184.205/nationalities/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     nationalityList: response
                 })
@@ -48,7 +46,6 @@ class CreateUserPage extends Component {
         fetch('http://178.128.184.205/questions/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     questionList: response
                 })
@@ -80,8 +77,6 @@ class CreateUserPage extends Component {
             picture_2: this.state.picture_1,
             picture_3: this.state.picture_1
         }
-
-        console.log(traveler)
 
         fetch(`http://178.128.184.205/post-traveler/`, {
             method: 'POST',

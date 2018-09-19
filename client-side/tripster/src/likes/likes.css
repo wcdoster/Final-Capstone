@@ -1,7 +1,12 @@
 #broken--div{
-    display: inline-block
+    display: inline
 }
 
 #likes--div{
     margin-bottom:60px;
+}
+
+#fixing--div{
+    display: flex;
+    flex-direction: row
 }

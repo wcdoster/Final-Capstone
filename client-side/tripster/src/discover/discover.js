@@ -37,7 +37,6 @@ class Discover extends Component {
                 })
                     .then(r => r.json())
                     .then(response => {
-                        console.log(response)
                         const j = response[0]
                         const travelerUrl = j.url
                         const travelerCity = j.city
@@ -50,7 +49,6 @@ class Discover extends Component {
                         })
                             .then(r => r.json())
                             .then(likes => {
-                                console.log(likes)
                                 likes.forEach(like => {
                                     const thisLike = {}
                                     if (travelerUrl === like.sender || travelerUrl === like.receiver) {
@@ -92,7 +90,6 @@ class Discover extends Component {
                                                     .then(r => r.json())
                                                     .then(response => {
                                                         response
-                                                        console.log(response)
                                                         response.forEach(person => {
                                                             if (existingList.indexOf(person.url) === -1 && person.url !== travelerUrl && person.city === travelerCity) {
                                                                 discoverList.push(person)
@@ -105,7 +102,6 @@ class Discover extends Component {
                                                         this.setState({ travelerList: travelerList })
                                                         if (travelerList.length > 0) {
                                                             this.makeTraveler(travelerList[0])
-                                                            console.log(travelerList)
                                                         }
                                                     })
                                             })

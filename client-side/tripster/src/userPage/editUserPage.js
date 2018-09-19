@@ -68,7 +68,6 @@ class EditUserProfile extends Component {
             profile_picture: this.state.profilePicture
         }
 
-        console.log(traveler)
 
         fetch(`http://178.128.184.205/travelers/${this.state.id}/`, {
             method: 'PUT',
@@ -96,7 +95,6 @@ class EditUserProfile extends Component {
                 .then(r => r.json())
                 .then(result => {
                     debugger
-                    console.log(result)
                     return result.name
                 })
         }
@@ -108,7 +106,6 @@ class EditUserProfile extends Component {
         fetch('http://178.128.184.205/cities/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     cityList: response
                 })
@@ -116,7 +113,6 @@ class EditUserProfile extends Component {
         fetch('http://178.128.184.205/nationalities/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     nationalityList: response
                 })
@@ -124,7 +120,6 @@ class EditUserProfile extends Component {
         fetch('http://178.128.184.205/questions/')
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 this.setState({
                     questionList: response
                 })
@@ -140,7 +135,6 @@ class EditUserProfile extends Component {
         })
             .then(r => r.json())
             .then(response => {
-                console.log(response)
                 const j = response[0]
                 this.setState({
                     id: j.id,

@@ -11,9 +11,6 @@ class Login extends Component {
     }
 
     postAuth = function (route, user) {
-        // debugger
-        console.log("postAuth called")
-        console.log("user?", user)
         return fetch(`http://178.128.184.205/${route}/`, {
             method: 'POST',
             body: JSON.stringify(user),
@@ -25,8 +22,6 @@ class Login extends Component {
         })
             .then(r => r.json())
             .then(response => {
-                console.log(response)
-                console.log('converted token', response.token);
                 localStorage.setItem("token", response.token)
                 localStorage.setItem("user", this.state.username)
                 // debugger
@@ -43,7 +38,6 @@ class Login extends Component {
                 })
                     .then(r => r.json())
                     .then(response => {
-                        console.log(response)
                         const j = response[0]
                         this.props.setAppState({ userId: j.user, travelerUrl: j.url })
                         // this.props.getLikes()
