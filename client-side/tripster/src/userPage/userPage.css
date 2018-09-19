@@ -17,6 +17,7 @@
 #user--page--buttons{
     margin-right: 10%;
     margin-left: 10%;
+    margin-bottom: 50px;
     display:flex;
     flex-direction: row;
     justify-content: space-between

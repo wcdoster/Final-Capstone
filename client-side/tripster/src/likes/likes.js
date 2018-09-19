@@ -158,7 +158,7 @@ class LikesPage extends Component {
 
     render() {
         return (
-            <div>
+            <div id="likes--div">
                 <h1>Likes</h1>
                 {this.renderProfiles()}
             </div>

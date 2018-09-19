@@ -95,8 +95,10 @@ class MatchUserPage extends Component {
                     <p>{this.state.traveler.answer_2}</p>
                     <p>{this.state.traveler.question_3}</p>
                     <p>{this.state.traveler.answer_3}</p>
+                    <div id="match--button--div">
                     <Button isColor="primary" onClick={this.viewChat}>Chat</Button>
                     <Button isColor="danger" onClick={this.remove}>Remove</Button>
+                    </div>
                 </Box>
             </div>
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Label, Button, Input, Select } from 'bloomer'
+import { Box, Label, Button, Input, Select } from 'bloomer'
 import request from 'superagent'
+import './createUserPage.css'
 
 const CLOUDINARY_UPLOAD_PRESET = 'jcszxosu'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/tripster/upload';
@@ -122,6 +123,7 @@ class CreateUserPage extends Component {
     render() {
         return (
             <div className="container--div">
+            <Box id="create--user--box">
                 <Label>Profile Picture</Label>
                 <Input type="file" 
                 // capture="camera" 
@@ -161,7 +163,8 @@ class CreateUserPage extends Component {
                         <option value={p.url}>{p.name}</option>
                     ))}
                 </Select>
-                <Button isColor="success" onClick={this.saveUser}>Register</Button>
+                </Box>
+                <Button id="create--user--page--button" isColor="success" onClick={this.saveUser}>Register</Button>
             </div >
         )
     }

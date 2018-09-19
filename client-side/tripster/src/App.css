@@ -38,3 +38,7 @@
   max-height: 85%;
   overflow-y: scroll
 }
+
+img {
+  image-orientation: from-image;
+}
