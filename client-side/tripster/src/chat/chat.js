@@ -47,7 +47,7 @@ class Chat extends Component {
     interval = function(){
         const interval = setInterval(()=>{
             this.getChat()
-        },1000)
+        },5000)
         this.setState({interval:interval})
     }.bind(this)
 
