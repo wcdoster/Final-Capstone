@@ -111,7 +111,7 @@ class MatchPage extends Component {
         const matchId = e.target.id
         const travelerId = e.target.parentNode.id
         const travelerRemove = { sender: this.state.currentUser.url, receiver: travelerId }
-        fetch('http://127.0.0.1:8000/traveler-remove/', {
+        fetch('http://178.128.184.205/traveler-remove/', {
             method: 'POST',
             body: JSON.stringify(travelerRemove),
             headers: {
@@ -121,7 +121,7 @@ class MatchPage extends Component {
             }
         })
             .then(() => {
-                fetch(`http://127.0.0.1:8000/traveler-match/${matchId}/`, {
+                fetch(`http://178.128.184.205/traveler-match/${matchId}/`, {
                     method: 'DELETE',
                     headers: {
                         "Authorization": `Token ${this.state.authToken}`
